@@ -151,7 +151,7 @@ class _AnimatedListAppState extends State<AnimatedListApp> {
             ),
           ),
           SliverPersistentHeader(
-            delegate: Header(title: "My Coupons"),
+            delegate: PersistentHeader(title: "My Coupons"),
             floating: true,
             pinned: true,
           ),
@@ -269,11 +269,11 @@ class _AnimatedListAppState extends State<AnimatedListApp> {
   }
 }
 
-class Header extends SliverPersistentHeaderDelegate {
+class PersistentHeader extends SliverPersistentHeaderDelegate {
   final String title;
   final bool viewAll;
 
-  Header({required this.title, this.viewAll = false});
+  PersistentHeader({required this.title, this.viewAll = false});
 
   @override
   Widget build(
