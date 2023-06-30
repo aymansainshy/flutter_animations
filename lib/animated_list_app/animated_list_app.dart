@@ -75,176 +75,184 @@ class _AnimatedListAppState extends State<AnimatedListApp> {
     ////////////////////////////////////////////////
 
     return Scaffold(
+      backgroundColor: Colors.grey.shade200,
       appBar: const CustomAppBar(),
-      body: CustomScrollView(
-        controller: _scrollController,
-        clipBehavior: Clip.antiAlias,
-        slivers: [
-          // SliverPersistentHeader(
-          //   delegate: Header(title: "Discover", viewAll: true),
-          // ),
-          SliverToBoxAdapter(
-            child: Opacity(
-              opacity: isStartScrolling ? opacity : 1.0,
-              child: SizedBox(
-                // color: Colors.amber,
-                width: MediaQuery.sizeOf(context).width,
-                height: 290,
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 60,
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                            top: 15, left: 25, bottom: 10, right: 25),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Discover",
-                              style: GoogleFonts.quicksand().copyWith(
-                                color: Colors.black54,
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Text(
-                              "View all>",
-                              style: GoogleFonts.quicksand().copyWith(
-                                color: Colors.grey.shade400,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 220,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: colors.length,
-                        itemBuilder: (context, index) {
-                          return
-                              // Transform(
-                              // alignment: Alignment.topLeft,
-                              // transform: Matrix4.identity()..scale(isStartScrolling ? opacity : 1.0, opacity),
-                              // child:
-                              Card(
-                            shape: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(30),
-                              ),
-                            ),
-                            color: colors[index],
-                            child: const SizedBox(
-                              width: 170,
-                            ),
-                            // ),
-                          );
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          SliverPersistentHeader(
-            delegate: PersistentHeader(title: "My Coupons"),
-            floating: true,
-            pinned: true,
-          ),
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (context, index) {
-                final cartItem = colors[index];
-
-                // The first item position offset in every scroll is always = 0;
-                final itemPositionOffset = index * itemHeight / 1.4;
-                final difference = _scrollController.offset - itemPositionOffset;
-                final percent = 1.5 - (difference / (itemHeight / 1.2));
-
-                double opacity = percent;
-                // Opacity accept value from 0.0 - 1.0 and Percent can go up to 1.0
-                // So we have to do so adjustment
-                if (opacity > 1.0) opacity = 1.0;
-                if (opacity < 0.0) opacity = 0.0;
-
-                double scale = percent;
-                if (percent > 1.0) scale = 1.0;
-
-                // if (index == 0) {
-                //   print('Index: $index');
-                //   print('Item Position Offset : $itemPositionOffset');
-                //   print('Scroll Offset : ${_scrollController.offset}');
-                //   print('Difference : ${_scrollController.offset - itemPositionOffset}');
-                //   print('Difference / ItemHeight : ${difference / itemHeight}');
-                //   print('Percent : $percent');
-                // }
-
-                return Align(
-                  // Align With heightFactor give up the feel of indexedStack
-                  heightFactor: 0.6,
-                  child: Opacity(
-                    opacity: opacity,
-                    child: Transform(
-                      alignment: Alignment.center,
-                      transform: Matrix4.identity()..scale(scale, 1.0),
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(
-                            PageRouteBuilder(
-                              transitionDuration:
-                                  const Duration(milliseconds: 150),
-                              reverseTransitionDuration:
-                                  const Duration(milliseconds: 150),
-                              pageBuilder:
-                                  (context, animation, secondaryAnimation) =>
-                                      ScaleTransition(
-                                scale: animation,
-                                child: const DetailsView(),
-                              ),
-                              transitionsBuilder: (context, animation,
-                                  secondaryAnimation, child) {
-                                return child;
-                              },
-                            ),
-                          );
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.shade200, //New
-                                  blurRadius: 40.0,
-                                  offset: const Offset(0, 8),
+      body: Stack(
+        alignment: AlignmentDirectional.bottomCenter,
+        children: [
+          CustomScrollView(
+            controller: _scrollController,
+            clipBehavior: Clip.antiAlias,
+            slivers: [
+              // SliverPersistentHeader(
+              //   delegate: Header(title: "Discover", viewAll: true),
+              // ),
+              SliverToBoxAdapter(
+                child: Opacity(
+                  opacity: isStartScrolling ? opacity : 1.0,
+                  child: SizedBox(
+                    // color: Colors.amber,
+                    width: MediaQuery.sizeOf(context).width,
+                    height: 290,
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: 60,
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                top: 15, left: 25, bottom: 10, right: 25),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Discover",
+                                  style: GoogleFonts.quicksand().copyWith(
+                                    color: Colors.black54,
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                Text(
+                                  "View all>",
+                                  style: GoogleFonts.quicksand().copyWith(
+                                    color: Colors.grey.shade400,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ],
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(30)),
                             ),
-                            child: Card(
-                              // elevation: 20,
-                              // surfaceTintColor: Colors.red,
-                              shape: const RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(30)),
-                              ),
-                              color: cartItem,
-                              child: SizedBox(
-                                height: itemHeight,
-                                child: Center(
-                                  child: Text(
-                                    "Ayman Sainshy",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleLarge
-                                        ?.copyWith(
-                                          color: Colors.white,
-                                        ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 220,
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: colors.length,
+                            itemBuilder: (context, index) {
+                              return
+                                  // Transform(
+                                  // alignment: Alignment.topLeft,
+                                  // transform: Matrix4.identity()..scale(isStartScrolling ? opacity : 1.0, opacity),
+                                  // child:
+                                  Card(
+                                shape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(30),
+                                  ),
+                                ),
+                                color: colors[index],
+                                child: const SizedBox(
+                                  width: 170,
+                                ),
+                                // ),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              SliverPersistentHeader(
+                delegate: PersistentHeader(title: "My Coupons"),
+                floating: true,
+                pinned: true,
+              ),
+              SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (context, index) {
+                    final cartItem = colors[index];
+
+                    // The first item position offset in every scroll is always = 0;
+                    final itemPositionOffset = index * itemHeight / 1.4;
+                    final difference =
+                        _scrollController.offset - itemPositionOffset;
+                    final percent = 1.5 - (difference / (itemHeight / 1.2));
+
+                    double opacity = percent;
+                    // Opacity accept value from 0.0 - 1.0 and Percent can go up to 1.0
+                    // So we have to do so adjustment
+                    if (opacity > 1.0) opacity = 1.0;
+                    if (opacity < 0.0) opacity = 0.0;
+
+                    double scale = percent;
+                    if (percent > 1.0) scale = 1.0;
+
+                    // if (index == 0) {
+                    //   print('Index: $index');
+                    //   print('Item Position Offset : $itemPositionOffset');
+                    //   print('Scroll Offset : ${_scrollController.offset}');
+                    //   print('Difference : ${_scrollController.offset - itemPositionOffset}');
+                    //   print('Difference / ItemHeight : ${difference / itemHeight}');
+                    //   print('Percent : $percent');
+                    // }
+
+                    return Align(
+                      // Align With heightFactor give up the feel of indexedStack
+                      heightFactor: 0.6,
+                      child: Opacity(
+                        opacity: opacity,
+                        child: Transform(
+                          alignment: Alignment.center,
+                          transform: Matrix4.identity()..scale(scale, 1.0),
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).push(
+                                PageRouteBuilder(
+                                  transitionDuration:
+                                      const Duration(milliseconds: 150),
+                                  reverseTransitionDuration:
+                                      const Duration(milliseconds: 150),
+                                  pageBuilder: (context, animation,
+                                          secondaryAnimation) =>
+                                      ScaleTransition(
+                                    scale: animation,
+                                    child: const DetailsView(),
+                                  ),
+                                  transitionsBuilder: (context, animation,
+                                      secondaryAnimation, child) {
+                                    return child;
+                                  },
+                                ),
+                              );
+                            },
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.shade200, //New
+                                      blurRadius: 40.0,
+                                      offset: const Offset(0, 8),
+                                    ),
+                                  ],
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(30)),
+                                ),
+                                child: Card(
+                                  // elevation: 20,
+                                  // surfaceTintColor: Colors.red,
+                                  shape: const RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(30)),
+                                  ),
+                                  color: cartItem,
+                                  child: SizedBox(
+                                    height: itemHeight,
+                                    child: Center(
+                                      child: Text(
+                                        "Ayman Sainshy",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleLarge
+                                            ?.copyWith(
+                                              color: Colors.white,
+                                            ),
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
@@ -252,18 +260,93 @@ class _AnimatedListAppState extends State<AnimatedListApp> {
                           ),
                         ),
                       ),
-                    ),
+                    );
+                  },
+                  childCount: colors.length,
+                ),
+              ),
+            ],
+          ),
+          ClipPath(
+            clipper: MyCustomClipper(),
+            child: Container(
+              height: 100,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.shade100, //New
+                    blurRadius: 40.0,
+                    offset: const Offset(0, -20),
                   ),
-                );
-              },
-              childCount: colors.length,
+                ],
+              ),
+              child: Padding(
+                padding:
+                    const EdgeInsets.only(left: 45.0, right: 45.0, top: 15.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      children: [
+                        Transform.rotate(
+                          angle: 30.5,
+                          child: Icon(
+                            Icons.send,
+                            color: Colors.grey.shade400,
+                            size: 32,
+                          ),
+                        ),
+                        const SizedBox(height: 5),
+                        Text(
+                          "Send Money",
+                          style: GoogleFonts.quicksand().copyWith(
+                            color: Colors.grey.shade500,
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        Icon(
+                          Icons.account_balance_wallet_rounded,
+                          color: Colors.grey.shade400,
+                          size: 32,
+                        ),
+                        const SizedBox(height: 5),
+                        Text(
+                          "Services",
+                          style: GoogleFonts.quicksand().copyWith(
+                            color: Colors.grey.shade500,
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
             ),
           ),
+          Transform.translate(
+            offset: const Offset(0, -40),
+            child: const CircleAvatar(
+              radius: 45,
+              backgroundColor: Colors.lightBlueAccent,
+              child: Icon(Icons.add_box_outlined, color: Colors.white, size: 35,),
+            ),
+          )
         ],
       ),
-      // bottomNavigationBar: Container(
-      //   height: 100,
-      //   color: Colors.black87,
+      // bottomNavigationBar: ClipPath(
+      //   clipper: MyCustomClipper(),
+      //   child: Container(
+      //     height: 100,
+      //     color: Colors.black87,
+      //   ),
       // ),
     );
   }
@@ -400,4 +483,31 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Size get preferredSize => const Size.fromHeight(170);
+}
+
+class MyCustomClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    Path path = Path();
+
+    path.moveTo(0, size.height - 100);
+
+    path.lineTo((size.width / 3) - 50, 0);
+
+    path.quadraticBezierTo((size.width / 3) + 10, 0, (size.width / 3) + 50, 30);
+    path.quadraticBezierTo((size.width / 2), 50, (size.width / 2) + 20, 30);
+    path.quadraticBezierTo(size.width - (size.width / 2) + 60, 0,
+        size.width - (size.width / 3) + 50, 0);
+
+    path.lineTo(size.width, 0);
+    path.lineTo(size.width, size.height);
+    path.lineTo(0, size.height);
+
+    path.close();
+
+    return path;
+  }
+
+  @override
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) => true;
 }

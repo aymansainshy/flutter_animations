@@ -16,6 +16,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
         useMaterial3: true,
+        // bottomNavigationBarTheme: Theme.of(context).bottomNavigationBarTheme.copyWith(
+        //   backgroundColor: Colors.transparent,
+        // )
       ),
       home: const Home(),
     );
