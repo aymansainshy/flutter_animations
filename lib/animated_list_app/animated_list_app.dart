@@ -72,45 +72,80 @@ class _AnimatedListAppState extends State<AnimatedListApp> {
     } else {
       opacity = 1.0;
     }
-    /////////////////////////////////////////////////
+    ////////////////////////////////////////////////
 
     return Scaffold(
       appBar: const CustomAppBar(),
       body: CustomScrollView(
         controller: _scrollController,
+        clipBehavior: Clip.antiAlias,
         slivers: [
-          SliverPersistentHeader(
-            delegate: Header(title: "Discover", viewAll: true),
-          ),
+          // SliverPersistentHeader(
+          //   delegate: Header(title: "Discover", viewAll: true),
+          // ),
           SliverToBoxAdapter(
-            child: SizedBox(
-              width: MediaQuery.sizeOf(context).width,
-              height: 250,
-              child: Opacity(
-                opacity: isStartScrolling ? opacity : 1.0,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: colors.length,
-                  itemBuilder: (context, index) {
-                    return
-                        // Transform(
-                        // alignment: Alignment.topLeft,
-                        // transform: Matrix4.identity()
-                        //   ..scale(isStartScrolling ? opacity : 1.0, opacity),
-                        // child:
-                        Card(
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(30),
+            child: Opacity(
+              opacity: isStartScrolling ? opacity : 1.0,
+              child: SizedBox(
+                // color: Colors.amber,
+                width: MediaQuery.sizeOf(context).width,
+                height: 290,
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 60,
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                            top: 15, left: 25, bottom: 10, right: 25),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Discover",
+                              style: GoogleFonts.quicksand().copyWith(
+                                color: Colors.black54,
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              "View all>",
+                              style: GoogleFonts.quicksand().copyWith(
+                                color: Colors.grey.shade400,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                      color: colors[index],
-                      child: const SizedBox(
-                        width: 200,
+                    ),
+                    SizedBox(
+                      height: 220,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: colors.length,
+                        itemBuilder: (context, index) {
+                          return
+                              // Transform(
+                              // alignment: Alignment.topLeft,
+                              // transform: Matrix4.identity()..scale(isStartScrolling ? opacity : 1.0, opacity),
+                              // child:
+                              Card(
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(30),
+                              ),
+                            ),
+                            color: colors[index],
+                            child: const SizedBox(
+                              width: 170,
+                            ),
+                            // ),
+                          );
+                        },
                       ),
-                      // ),
-                    );
-                  },
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -127,9 +162,8 @@ class _AnimatedListAppState extends State<AnimatedListApp> {
 
                 // The first item position offset in every scroll is always = 0;
                 final itemPositionOffset = index * itemHeight / 1.4;
-                final difference =
-                    _scrollController.offset - itemPositionOffset;
-                final percent = 2 - (difference / (itemHeight / 1.1));
+                final difference = _scrollController.offset - itemPositionOffset;
+                final percent = 1.5 - (difference / (itemHeight / 1.2));
 
                 double opacity = percent;
                 // Opacity accept value from 0.0 - 1.0 and Percent can go up to 1.0
@@ -186,7 +220,7 @@ class _AnimatedListAppState extends State<AnimatedListApp> {
                                 BoxShadow(
                                   color: Colors.grey.shade200, //New
                                   blurRadius: 40.0,
-                                  offset: const Offset(0, 4),
+                                  offset: const Offset(0, 8),
                                 ),
                               ],
                               borderRadius:
@@ -247,28 +281,30 @@ class Header extends SliverPersistentHeaderDelegate {
     double shrinkOffset,
     bool overlapsContent,
   ) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 15, left: 25, bottom: 5, right: 25),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            title,
-            style: GoogleFonts.quicksand().copyWith(
-              color: Colors.black54,
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          if (viewAll)
+    return SizedBox(
+      child: Padding(
+        padding: const EdgeInsets.only(top: 15, left: 25, bottom: 5, right: 25),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
             Text(
-              "View all>",
+              title,
               style: GoogleFonts.quicksand().copyWith(
-                color: Colors.grey.shade400,
+                color: Colors.black54,
+                fontSize: 24,
                 fontWeight: FontWeight.bold,
               ),
             ),
-        ],
+            // if (viewAll)
+            //   Text(
+            //     "View all>",
+            //     style: GoogleFonts.quicksand().copyWith(
+            //       color: Colors.grey.shade400,
+            //       fontWeight: FontWeight.bold,
+            //     ),
+            //   ),
+          ],
+        ),
       ),
     );
   }
@@ -323,18 +359,22 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("Loyalty Cards",
-                      style: GoogleFonts.quicksand().copyWith(
-                          color: Colors.grey.shade400,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 21)),
+                  Text(
+                    "Loyalty Cards",
+                    style: GoogleFonts.quicksand().copyWith(
+                        color: Colors.grey.shade400,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 21),
+                  ),
                   Row(
                     children: [
-                      Text("Coupons",
-                          style: GoogleFonts.quicksand().copyWith(
-                              color: Colors.black54,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 24)),
+                      Text(
+                        "Coupons",
+                        style: GoogleFonts.quicksand().copyWith(
+                            color: Colors.black54,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 24),
+                      ),
                       const SizedBox(width: 4),
                       Badge(
                         textColor: Colors.white,
