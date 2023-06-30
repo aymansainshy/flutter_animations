@@ -24,11 +24,43 @@ class CartModel {
 final List<CartModel> items = [
   CartModel(
     title: "Apple Iphone",
-    image: "assets/animated_list_app/images/inphon1.png",
-    logo: "assets/animated_list_app/images/apple_logo.png",
-    color: const Color(0xffd8e1ef),
+    image: "assets/animated_list_app/images/macdonald.png",
+    logo: "assets/animated_list_app/images/macdonald_logo.png",
+    color: const Color(0xff54afa7),
     price: 15,
-    priceColor: const Color(0xff270dd3),
+    priceColor: const Color(0xffffffff),
+  ),
+  CartModel(
+    title: "Dunkin Donuts",
+    image: "assets/animated_list_app/images/donuts.png",
+    logo: "assets/animated_list_app/images/dunkin_donuts.png",
+    color: const Color(0xfff8f3f4),
+    price: 0.50,
+    priceColor: Colors.purpleAccent,
+  ),
+  CartModel(
+    title: "Pizza",
+    image: "assets/animated_list_app/images/pizza.png",
+    logo: "assets/animated_list_app/images/pizza_logo.png",
+    color: const Color(0xfff9cdef),
+    price: 1.25,
+    priceColor:  const Color(0xff270dd3),
+  ),
+  CartModel(
+    title: "Apple Iphone",
+    image: "assets/animated_list_app/images/adidas.png",
+    logo: "assets/animated_list_app/images/adidas_logo.png",
+    color: const Color(0xffffffff),
+    price: 15,
+    priceColor: Colors.black87,
+  ),
+  CartModel(
+    title: "Apple Iphone",
+    image: "assets/animated_list_app/images/ps_5.png",
+    logo: "assets/animated_list_app/images/ps5.png",
+    color: Colors.black26,
+    price: 15,
+    priceColor: Colors.white,
   ),
   CartModel(
     title: "Apple Iphone",
@@ -42,7 +74,7 @@ final List<CartModel> items = [
     title: "Apple Iphone",
     image: "assets/animated_list_app/images/inphon1.png",
     logo: "assets/animated_list_app/images/apple_logo.png",
-    color: const Color(0xffd8e1ef),
+    color: const Color(0xffC7DC71),
     price: 15,
     priceColor: const Color(0xff270dd3),
   ),
@@ -50,7 +82,7 @@ final List<CartModel> items = [
     title: "Apple Iphone",
     image: "assets/animated_list_app/images/inphon1.png",
     logo: "assets/animated_list_app/images/apple_logo.png",
-    color: const Color(0xffd8e1ef),
+    color: const Color(0xffefe2f1),
     price: 15,
     priceColor: const Color(0xff270dd3),
   ),
@@ -58,31 +90,10 @@ final List<CartModel> items = [
     title: "Apple Iphone",
     image: "assets/animated_list_app/images/inphon1.png",
     logo: "assets/animated_list_app/images/apple_logo.png",
-    color: const Color(0xffd8e1ef),
+    color: const Color(0xff1f1d80),
     price: 15,
-    priceColor: const Color(0xff270dd3),
+    priceColor: Colors.white,
   ),
-];
-
-final List<Color?> colors = [
-  Colors.black,
-  Colors.lightBlueAccent,
-  Colors.red,
-  Colors.green,
-  Colors.deepPurple,
-  Colors.yellow,
-  Colors.black,
-  Colors.red,
-  Colors.green,
-  Colors.deepPurple,
-  Colors.yellow,
-
-  // Colors.white,
-  // Colors.white,
-  // Colors.white,
-  // Colors.white,
-  // Colors.white,
-  // Colors.white,
 ];
 
 class AnimatedListApp extends StatefulWidget {
@@ -136,7 +147,7 @@ class _AnimatedListAppState extends State<AnimatedListApp> {
     ////////////////////////////////////////////////
 
     return Scaffold(
-      backgroundColor: Colors.grey.shade200,
+      backgroundColor: Colors.grey.shade300,
       appBar: const CustomAppBar(),
       body: Stack(
         alignment: AlignmentDirectional.bottomCenter,
@@ -188,7 +199,7 @@ class _AnimatedListAppState extends State<AnimatedListApp> {
                           height: 220,
                           child: ListView.builder(
                             scrollDirection: Axis.horizontal,
-                            itemCount: colors.length,
+                            itemCount: items.length,
                             itemBuilder: (context, index) {
                               return
                                   // Transform(
@@ -201,7 +212,7 @@ class _AnimatedListAppState extends State<AnimatedListApp> {
                                     Radius.circular(30),
                                   ),
                                 ),
-                                color: colors[index],
+                                color: items[index].color,
                                 child: const SizedBox(
                                   width: 170,
                                 ),
@@ -282,16 +293,16 @@ class _AnimatedListAppState extends State<AnimatedListApp> {
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 8),
                               child: Container(
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                   boxShadow: [
                                     BoxShadow(
-                                      color: Colors.grey.shade200, //New
+                                      color: Colors.grey, //New
                                       blurRadius: 40.0,
-                                      offset: const Offset(0, 8),
+                                      offset: Offset(0, 8),
                                     ),
                                   ],
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(30)),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(30)),
                                 ),
                                 child: CartItem(
                                   cart: cartItem,
@@ -420,7 +431,7 @@ class CartItem extends StatelessWidget {
             children: [
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 15.0, top: 10.0),
+                  padding: const EdgeInsets.only(left: 20.0, top: 10.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -434,7 +445,7 @@ class CartItem extends StatelessWidget {
                         cart.title,
                         style: GoogleFonts.quicksand().copyWith(
                           fontSize: 16,
-                          color: Colors.black45,
+                          color: cart.priceColor,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -448,11 +459,11 @@ class CartItem extends StatelessWidget {
                               color: cart.priceColor,
                               fontWeight: FontWeight.bold,
                             ),
-                            children: const <TextSpan>[
+                            children: <TextSpan>[
                               TextSpan(
                                 text: ' %',
                                 style: TextStyle(
-                                  color: Colors.black26,
+                                  color: cart.priceColor,
                                   fontSize: 25,
                                 ),
                               ),
@@ -466,7 +477,7 @@ class CartItem extends StatelessWidget {
               ),
               Expanded(
                 child: SizedBox(
-                  height: 160,
+                  height: 170,
                   width: 100,
                   child: Image.asset(
                     cart.image,
