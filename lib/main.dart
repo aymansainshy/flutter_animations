@@ -40,11 +40,11 @@ class Home extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => const TweenAnimationBuilderCounter(),
+                    builder: (context) => const AnimatedListApp(),
                   ),
                 );
               },
-              child: const Text("Animated Counter App"),
+              child: const Text("Animated List App"),
             ),
           ),
           Center(
@@ -52,11 +52,11 @@ class Home extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => const AnimatedListApp(),
+                    builder: (context) => const TweenAnimationBuilderCounter(),
                   ),
                 );
               },
-              child: const Text("Animated List App"),
+              child: const Text("Animated Counter App"),
             ),
           ),
         ],

@@ -55,8 +55,7 @@ class _TweenAnimationBuilderCounterState
                         ),
                       ),
                     TweenAnimationBuilder<Color?>(
-                      tween:
-                          ColorTween(begin: Colors.black, end: Colors.teal),
+                      tween: ColorTween(begin: Colors.black, end: Colors.teal),
                       duration: const Duration(milliseconds: 1000),
                       builder: (context, Color? cValue, __) {
                         return Opacity(
