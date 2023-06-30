@@ -3,6 +3,67 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animation/animated_list_app/details_view.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+class CartModel {
+  final String title;
+  final String image;
+  final Color color;
+  final String logo;
+  final double price;
+  final Color priceColor;
+
+  CartModel({
+    required this.title,
+    required this.image,
+    required this.color,
+    required this.logo,
+    required this.price,
+    required this.priceColor,
+  });
+}
+
+final List<CartModel> items = [
+  CartModel(
+    title: "Apple Iphone",
+    image: "assets/animated_list_app/images/inphon1.png",
+    logo: "assets/animated_list_app/images/apple_logo.png",
+    color: const Color(0xffd8e1ef),
+    price: 15,
+    priceColor: const Color(0xff270dd3),
+  ),
+  CartModel(
+    title: "Apple Iphone",
+    image: "assets/animated_list_app/images/inphon1.png",
+    logo: "assets/animated_list_app/images/apple_logo.png",
+    color: const Color(0xffd8e1ef),
+    price: 15,
+    priceColor: const Color(0xff270dd3),
+  ),
+  CartModel(
+    title: "Apple Iphone",
+    image: "assets/animated_list_app/images/inphon1.png",
+    logo: "assets/animated_list_app/images/apple_logo.png",
+    color: const Color(0xffd8e1ef),
+    price: 15,
+    priceColor: const Color(0xff270dd3),
+  ),
+  CartModel(
+    title: "Apple Iphone",
+    image: "assets/animated_list_app/images/inphon1.png",
+    logo: "assets/animated_list_app/images/apple_logo.png",
+    color: const Color(0xffd8e1ef),
+    price: 15,
+    priceColor: const Color(0xff270dd3),
+  ),
+  CartModel(
+    title: "Apple Iphone",
+    image: "assets/animated_list_app/images/inphon1.png",
+    logo: "assets/animated_list_app/images/apple_logo.png",
+    color: const Color(0xffd8e1ef),
+    price: 15,
+    priceColor: const Color(0xff270dd3),
+  ),
+];
+
 final List<Color?> colors = [
   Colors.black,
   Colors.lightBlueAccent,
@@ -162,7 +223,7 @@ class _AnimatedListAppState extends State<AnimatedListApp> {
               SliverList(
                 delegate: SliverChildBuilderDelegate(
                   (context, index) {
-                    final cartItem = colors[index];
+                    final cartItem = items[index];
 
                     // The first item position offset in every scroll is always = 0;
                     final itemPositionOffset = index * itemHeight / 1.4;
@@ -232,28 +293,9 @@ class _AnimatedListAppState extends State<AnimatedListApp> {
                                   borderRadius: const BorderRadius.all(
                                       Radius.circular(30)),
                                 ),
-                                child: Card(
-                                  // elevation: 20,
-                                  // surfaceTintColor: Colors.red,
-                                  shape: const RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(30)),
-                                  ),
-                                  color: cartItem,
-                                  child: SizedBox(
-                                    height: itemHeight,
-                                    child: Center(
-                                      child: Text(
-                                        "Ayman Sainshy",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleLarge
-                                            ?.copyWith(
-                                              color: Colors.white,
-                                            ),
-                                      ),
-                                    ),
-                                  ),
+                                child: CartItem(
+                                  cart: cartItem,
+                                  itemHeight: itemHeight,
                                 ),
                               ),
                             ),
@@ -262,7 +304,7 @@ class _AnimatedListAppState extends State<AnimatedListApp> {
                       ),
                     );
                   },
-                  childCount: colors.length,
+                  childCount: items.length,
                 ),
               ),
             ],
@@ -336,7 +378,11 @@ class _AnimatedListAppState extends State<AnimatedListApp> {
             child: const CircleAvatar(
               radius: 45,
               backgroundColor: Colors.lightBlueAccent,
-              child: Icon(Icons.add_box_outlined, color: Colors.white, size: 35,),
+              child: Icon(
+                Icons.add_box_outlined,
+                color: Colors.white,
+                size: 35,
+              ),
             ),
           )
         ],
@@ -348,6 +394,87 @@ class _AnimatedListAppState extends State<AnimatedListApp> {
       //     color: Colors.black87,
       //   ),
       // ),
+    );
+  }
+}
+
+class CartItem extends StatelessWidget {
+  const CartItem({required this.cart, required this.itemHeight, super.key});
+
+  final CartModel cart;
+  final double itemHeight;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      // elevation: 20,
+      // surfaceTintColor: Colors.red,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(30)),
+      ),
+      color: cart.color,
+      child: SizedBox(
+          height: itemHeight,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 15.0, top: 10.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: 35,
+                        width: 35,
+                        child: Image.asset(cart.logo),
+                      ),
+                      const SizedBox(height: 5),
+                      Text(
+                        cart.title,
+                        style: GoogleFonts.quicksand().copyWith(
+                          fontSize: 16,
+                          color: Colors.black45,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Transform.translate(
+                        offset: const Offset(0.0, -5.0),
+                        child: RichText(
+                          text: TextSpan(
+                            text: "- ${cart.price.toString()}",
+                            style: GoogleFonts.quicksand().copyWith(
+                              fontSize: 40,
+                              color: cart.priceColor,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            children: const <TextSpan>[
+                              TextSpan(
+                                text: ' %',
+                                style: TextStyle(
+                                  color: Colors.black26,
+                                  fontSize: 25,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Expanded(
+                child: SizedBox(
+                  height: 160,
+                  width: 100,
+                  child: Image.asset(
+                    cart.image,
+                  ),
+                ),
+              ),
+            ],
+          )),
     );
   }
 }
