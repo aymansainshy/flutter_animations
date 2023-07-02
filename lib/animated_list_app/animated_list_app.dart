@@ -21,6 +21,36 @@ class CartModel {
   });
 }
 
+class TopCardModel {
+  final Color color;
+  final IconData icon;
+  final String title;
+
+  TopCardModel({
+    required this.color,
+    required this.icon,
+    required this.title,
+  });
+}
+
+final List<TopCardModel> topCard = [
+  TopCardModel(
+    color: const Color(0xffeaae36),
+    icon: CupertinoIcons.heart,
+    title: "Most Favourites",
+  ),
+  TopCardModel(
+    color: const Color(0xff46c0f5),
+    icon: CupertinoIcons.arrow_2_circlepath_circle,
+    title: "Newest",
+  ),
+  TopCardModel(
+    color: const Color(0xffadd6f5),
+    icon: CupertinoIcons.alarm,
+    title: "Supers",
+  ),
+];
+
 final List<CartModel> items = [
   CartModel(
     title: "Apple Iphone",
@@ -44,14 +74,14 @@ final List<CartModel> items = [
     logo: "assets/animated_list_app/images/pizza_logo.png",
     color: const Color(0xfff9cdef),
     price: 1.25,
-    priceColor:  const Color(0xff270dd3),
+    priceColor: const Color(0xff270dd3),
   ),
   CartModel(
     title: "Apple Iphone",
     image: "assets/animated_list_app/images/adidas.png",
     logo: "assets/animated_list_app/images/adidas_logo.png",
     color: const Color(0xffffffff),
-    price: 15,
+    price: 23,
     priceColor: Colors.black87,
   ),
   CartModel(
@@ -63,11 +93,59 @@ final List<CartModel> items = [
     priceColor: Colors.white,
   ),
   CartModel(
+    title: "Pizza",
+    image: "assets/animated_list_app/images/pizza.png",
+    logo: "assets/animated_list_app/images/pizza_logo.png",
+    color: const Color(0xfff9cdef),
+    price: 1.25,
+    priceColor: const Color(0xff270dd3),
+  ),
+  CartModel(
     title: "Apple Iphone",
     image: "assets/animated_list_app/images/inphon1.png",
     logo: "assets/animated_list_app/images/apple_logo.png",
     color: const Color(0xffd8e1ef),
+    price: 13.5,
+    priceColor: const Color(0xff270dd3),
+  ),
+  CartModel(
+    title: "Mac Donalds23",
+    image: "assets/animated_list_app/images/macdonald.png",
+    logo: "assets/animated_list_app/images/macdonald_logo.png",
+    color: const Color(0xff1f1d80),
+    price: 0.04,
+    priceColor: Colors.white,
+  ),
+  CartModel(
+    title: "Dunkin Donuts",
+    image: "assets/animated_list_app/images/donuts.png",
+    logo: "assets/animated_list_app/images/dunkin_donuts.png",
+    color: const Color(0xfff8f3f4),
+    price: 0.50,
+    priceColor: Colors.purpleAccent,
+  ),
+  CartModel(
+    title: "Pizza",
+    image: "assets/animated_list_app/images/pizza.png",
+    logo: "assets/animated_list_app/images/pizza_logo.png",
+    color: const Color(0xfff9cdef),
+    price: 1.25,
+    priceColor: const Color(0xff270dd3),
+  ),
+  CartModel(
+    title: "Apple Iphone",
+    image: "assets/animated_list_app/images/ps_5.png",
+    logo: "assets/animated_list_app/images/ps5.png",
+    color: Colors.black26,
     price: 15,
+    priceColor: Colors.white,
+  ),
+  CartModel(
+    title: "Play Station 5",
+    image: "assets/animated_list_app/images/ps_5.png",
+    logo: "assets/animated_list_app/images/ps5.png",
+    color: const Color(0xffefe2f1),
+    price: 33.5,
     priceColor: const Color(0xff270dd3),
   ),
   CartModel(
@@ -80,18 +158,18 @@ final List<CartModel> items = [
   ),
   CartModel(
     title: "Apple Iphone",
-    image: "assets/animated_list_app/images/inphon1.png",
-    logo: "assets/animated_list_app/images/apple_logo.png",
-    color: const Color(0xffefe2f1),
-    price: 15,
-    priceColor: const Color(0xff270dd3),
+    image: "assets/animated_list_app/images/adidas.png",
+    logo: "assets/animated_list_app/images/adidas_logo.png",
+    color: const Color(0xffffffff),
+    price: 23,
+    priceColor: Colors.black87,
   ),
   CartModel(
-    title: "Apple Iphone",
-    image: "assets/animated_list_app/images/inphon1.png",
-    logo: "assets/animated_list_app/images/apple_logo.png",
+    title: "Mac Donalds23",
+    image: "assets/animated_list_app/images/macdonald.png",
+    logo: "assets/animated_list_app/images/macdonald_logo.png",
     color: const Color(0xff1f1d80),
-    price: 15,
+    price: 0.04,
     priceColor: Colors.white,
   ),
 ];
@@ -147,7 +225,7 @@ class _AnimatedListAppState extends State<AnimatedListApp> {
     ////////////////////////////////////////////////
 
     return Scaffold(
-      backgroundColor: Colors.grey.shade300,
+      backgroundColor: Colors.grey.shade100,
       appBar: const CustomAppBar(),
       body: Stack(
         alignment: AlignmentDirectional.bottomCenter,
@@ -165,7 +243,7 @@ class _AnimatedListAppState extends State<AnimatedListApp> {
                   child: SizedBox(
                     // color: Colors.amber,
                     width: MediaQuery.sizeOf(context).width,
-                    height: 290,
+                    height: 270,
                     child: Column(
                       children: [
                         SizedBox(
@@ -178,7 +256,7 @@ class _AnimatedListAppState extends State<AnimatedListApp> {
                               children: [
                                 Text(
                                   "Discover",
-                                  style: GoogleFonts.quicksand().copyWith(
+                                  style: GoogleFonts.tajawal().copyWith(
                                     color: Colors.black54,
                                     fontSize: 24,
                                     fontWeight: FontWeight.bold,
@@ -196,10 +274,10 @@ class _AnimatedListAppState extends State<AnimatedListApp> {
                           ),
                         ),
                         SizedBox(
-                          height: 220,
+                          height: 200,
                           child: ListView.builder(
                             scrollDirection: Axis.horizontal,
-                            itemCount: items.length,
+                            itemCount: topCard.length,
                             itemBuilder: (context, index) {
                               return
                                   // Transform(
@@ -212,9 +290,44 @@ class _AnimatedListAppState extends State<AnimatedListApp> {
                                     Radius.circular(30),
                                   ),
                                 ),
-                                color: items[index].color,
-                                child: const SizedBox(
-                                  width: 170,
+                                color: topCard[index].color,
+                                child: SizedBox(
+                                  width: 160,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                      left: 15,
+                                      top: 10.0,
+                                      right: 15,
+                                      bottom: 15,
+                                    ),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          topCard[index].title,
+                                          style:
+                                              GoogleFonts.quicksand().copyWith(
+                                            color: Colors.grey.shade300,
+                                            fontSize: 22,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        Row(
+                                          children: [
+                                            const Spacer(),
+                                            Icon(
+                                              topCard[index].icon,
+                                              color: Colors.grey.shade300,
+                                              size: 35,
+                                            ),
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                  ),
                                 ),
                                 // ),
                               );
@@ -237,10 +350,10 @@ class _AnimatedListAppState extends State<AnimatedListApp> {
                     final cartItem = items[index];
 
                     // The first item position offset in every scroll is always = 0;
-                    final itemPositionOffset = index * itemHeight / 1.4;
+                    final itemPositionOffset = index * itemHeight / 1.42;
                     final difference =
                         _scrollController.offset - itemPositionOffset;
-                    final percent = 1.5 - (difference / (itemHeight / 1.2));
+                    final percent = 1.2 - (difference / (itemHeight / 1.2));
 
                     double opacity = percent;
                     // Opacity accept value from 0.0 - 1.0 and Percent can go up to 1.0
@@ -248,8 +361,8 @@ class _AnimatedListAppState extends State<AnimatedListApp> {
                     if (opacity > 1.0) opacity = 1.0;
                     if (opacity < 0.0) opacity = 0.0;
 
-                    double scale = percent;
-                    if (percent > 1.0) scale = 1.0;
+                    // double scale = percent;
+                    // if (percent > 1.0) scale = 1.0;
 
                     // if (index == 0) {
                     //   print('Index: $index');
@@ -260,14 +373,16 @@ class _AnimatedListAppState extends State<AnimatedListApp> {
                     //   print('Percent : $percent');
                     // }
 
-                    return Align(
-                      // Align With heightFactor give up the feel of indexedStack
-                      heightFactor: 0.6,
-                      child: Opacity(
-                        opacity: opacity,
-                        child: Transform(
-                          alignment: Alignment.center,
-                          transform: Matrix4.identity()..scale(scale, 1.0),
+                    return Padding(
+                      padding: const EdgeInsets.only(top: 3.0),
+                      child: Align(
+                        // Align With heightFactor give up the feel of indexedStack
+                        heightFactor: 0.6,
+                        child: Opacity(
+                          opacity: opacity,
+                          // child: Transform(
+                          //   alignment: Alignment.center,
+                          //   transform: Matrix4.identity()..scale(scale, 1.0),
                           child: GestureDetector(
                             onTap: () {
                               Navigator.of(context).push(
@@ -307,10 +422,12 @@ class _AnimatedListAppState extends State<AnimatedListApp> {
                                 child: CartItem(
                                   cart: cartItem,
                                   itemHeight: itemHeight,
+                                  scale: opacity,
                                 ),
                               ),
                             ),
                           ),
+                          // ),
                         ),
                       ),
                     );
@@ -323,7 +440,7 @@ class _AnimatedListAppState extends State<AnimatedListApp> {
           ClipPath(
             clipper: MyCustomClipper(),
             child: Container(
-              height: 100,
+              height: 90,
               decoration: BoxDecoration(
                 color: Colors.white,
                 boxShadow: [
@@ -387,12 +504,12 @@ class _AnimatedListAppState extends State<AnimatedListApp> {
           Transform.translate(
             offset: const Offset(0, -40),
             child: const CircleAvatar(
-              radius: 45,
+              radius: 42,
               backgroundColor: Colors.lightBlueAccent,
               child: Icon(
                 Icons.add_box_outlined,
                 color: Colors.white,
-                size: 35,
+                size: 30,
               ),
             ),
           )
@@ -410,82 +527,98 @@ class _AnimatedListAppState extends State<AnimatedListApp> {
 }
 
 class CartItem extends StatelessWidget {
-  const CartItem({required this.cart, required this.itemHeight, super.key});
+  const CartItem({
+    required this.cart,
+    required this.itemHeight,
+    required this.scale,
+    super.key,
+  });
 
   final CartModel cart;
   final double itemHeight;
 
+  final double scale;
+
   @override
   Widget build(BuildContext context) {
-    return Card(
-      // elevation: 20,
-      // surfaceTintColor: Colors.red,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(30)),
-      ),
-      color: cart.color,
-      child: SizedBox(
-          height: itemHeight,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 20.0, top: 10.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: 35,
-                        width: 35,
-                        child: Image.asset(cart.logo),
-                      ),
-                      const SizedBox(height: 5),
-                      Text(
-                        cart.title,
-                        style: GoogleFonts.quicksand().copyWith(
-                          fontSize: 16,
-                          color: cart.priceColor,
-                          fontWeight: FontWeight.bold,
+    print("Scale : ${20 * scale}");
+
+    return SizedBox(
+      height: itemHeight,
+      width: MediaQuery.sizeOf(context).width * (scale + 0.1),
+      child: Card(
+        key: Key(cart.image),
+        // elevation: 20,
+        // surfaceTintColor: Colors.red,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(25)),
+        ),
+        color: cart.color,
+        child: SizedBox(
+            height: itemHeight * scale,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding:
+                        EdgeInsets.only(left: 20.0 * scale, top: 10.0 * scale),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: 35 * scale,
+                          width: 35 * scale,
+                          child: Image.asset(cart.logo),
                         ),
-                      ),
-                      Transform.translate(
-                        offset: const Offset(0.0, -5.0),
-                        child: RichText(
-                          text: TextSpan(
-                            text: "- ${cart.price.toString()}",
-                            style: GoogleFonts.quicksand().copyWith(
-                              fontSize: 40,
-                              color: cart.priceColor,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            children: <TextSpan>[
-                              TextSpan(
-                                text: ' %',
-                                style: TextStyle(
-                                  color: cart.priceColor,
-                                  fontSize: 25,
-                                ),
-                              ),
-                            ],
+                        SizedBox(height: 4 * scale),
+                        Text(
+                          cart.title,
+                          style: GoogleFonts.quicksand().copyWith(
+                            fontSize: 14 * scale,
+                            color: cart.priceColor,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
-                      ),
-                    ],
+                        Transform.translate(
+                          offset: Offset(0.0, -5.0 * scale),
+                          child: RichText(
+                            text: TextSpan(
+                              text: "- ${cart.price.toString()}",
+                              style: GoogleFonts.quicksand().copyWith(
+                                fontSize: 35 * scale,
+                                color: cart.priceColor,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              children: <TextSpan>[
+                                TextSpan(
+                                  text: ' %',
+                                  style: TextStyle(
+                                    color: cart.priceColor,
+                                    fontSize: 20 * scale,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              Expanded(
-                child: SizedBox(
-                  height: 170,
-                  width: 100,
-                  child: Image.asset(
-                    cart.image,
+                Expanded(
+                  child: SizedBox(
+                    height: 170,
+                    width: 100,
+                    child: Image.asset(
+                      cart.image,
+                    ),
                   ),
                 ),
-              ),
-            ],
-          )),
+              ],
+            )),
+      ),
     );
   }
 }
@@ -628,14 +761,13 @@ class MyCustomClipper extends CustomClipper<Path> {
   Path getClip(Size size) {
     Path path = Path();
 
-    path.moveTo(0, size.height - 100);
+    path.moveTo(0, size.height - 90);
 
     path.lineTo((size.width / 3) - 50, 0);
 
     path.quadraticBezierTo((size.width / 3) + 10, 0, (size.width / 3) + 50, 30);
     path.quadraticBezierTo((size.width / 2), 50, (size.width / 2) + 20, 30);
-    path.quadraticBezierTo(size.width - (size.width / 2) + 60, 0,
-        size.width - (size.width / 3) + 50, 0);
+    path.quadraticBezierTo(size.width - (size.width / 2) + 60, 0, size.width - (size.width / 3) + 50, 0);
 
     path.lineTo(size.width, 0);
     path.lineTo(size.width, size.height);
