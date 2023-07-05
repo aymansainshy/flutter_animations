@@ -6,10 +6,15 @@ import 'package:google_fonts/google_fonts.dart';
 class CartDetailsView extends StatelessWidget {
   const CartDetailsView({
     required this.product,
+    required this.productIndex,
+    required this.onAddProduct,
     super.key,
   });
 
   final Product product;
+  final int productIndex;
+
+  final Function(Product product) onAddProduct;
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +56,9 @@ class CartDetailsView extends StatelessWidget {
                       child: SizedBox(
                         height: 350,
                         width: 350,
-                        child: Image.asset(product.imageUrl),
+                        child: Hero(
+                            tag: productIndex,
+                            child: Image.asset(product.imageUrl)),
                       ),
                     ),
                     const SizedBox(height: 30),
@@ -169,7 +176,14 @@ class CartDetailsView extends StatelessWidget {
                     ),
                     const Spacer(),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        onAddProduct(product);
+                        Navigator.of(context).pop();
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            Colors.orange.shade300, // Background color
+                      ),
                       child: SizedBox(
                         height: 50,
                         width: MediaQuery.sizeOf(context).width / 2,
@@ -177,6 +191,7 @@ class CartDetailsView extends StatelessWidget {
                           child: Text(
                             "Add to cart",
                             style: GoogleFonts.lexendDeca().copyWith(
+                              color: Colors.black,
                               fontSize: 16,
                             ),
                           ),

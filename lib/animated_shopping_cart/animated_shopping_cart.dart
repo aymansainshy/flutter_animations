@@ -80,6 +80,14 @@ class _AnimatedShoppingCartState extends State<AnimatedShoppingCart> {
   bool showCart = false;
   final List<Product> products = [..._products];
 
+  final List<Product> shoppingCart = [];
+
+  void addToCart(Product product) {
+    setState(() {
+      shoppingCart.add(product);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.sizeOf(context);
@@ -157,6 +165,17 @@ class _AnimatedShoppingCartState extends State<AnimatedShoppingCart> {
                       itemBuilder: (context, index) {
                         return GestureDetector(
                           onTap: () {
+                            // Navigator.of(context).push(
+                            //   MaterialPageRoute(
+                            //     builder: (context) {
+                            //       return CartDetailsView(
+                            //         productIndex: index,
+                            //         product: products[index],
+                            //       );
+                            //     },
+                            //   ),
+                            // );
+
                             Navigator.of(context).push(
                               PageRouteBuilder(
                                 transitionDuration:
@@ -165,10 +184,15 @@ class _AnimatedShoppingCartState extends State<AnimatedShoppingCart> {
                                     const Duration(milliseconds: 150),
                                 pageBuilder:
                                     (context, animation, secondaryAnimation) =>
-                                        ScaleTransition(
-                                  scale: animation,
+                                        FadeTransition(
+                                  opacity: animation,
                                   child: CartDetailsView(
+                                    productIndex: index,
                                     product: products[index],
+                                      onAddProduct: (product){
+                                      addToCart(product);
+                                      print(product.title);
+                                    }
                                   ),
                                 ),
                                 transitionsBuilder: (context, animation,
@@ -187,8 +211,11 @@ class _AnimatedShoppingCartState extends State<AnimatedShoppingCart> {
                                 children: [
                                   SizedBox(
                                     height: 120,
-                                    child: Image.asset(
-                                      products[index].imageUrl,
+                                    child: Hero(
+                                      tag: index,
+                                      child: Image.asset(
+                                        products[index].imageUrl,
+                                      ),
                                     ),
                                   ),
                                   const Spacer(),
