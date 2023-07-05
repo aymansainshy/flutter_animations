@@ -167,7 +167,9 @@ class _AnimatedShoppingCartState extends State<AnimatedShoppingCart> {
                                     (context, animation, secondaryAnimation) =>
                                         ScaleTransition(
                                   scale: animation,
-                                  child: const CartDetailsView(),
+                                  child: CartDetailsView(
+                                    product: products[index],
+                                  ),
                                 ),
                                 transitionsBuilder: (context, animation,
                                     secondaryAnimation, child) {
