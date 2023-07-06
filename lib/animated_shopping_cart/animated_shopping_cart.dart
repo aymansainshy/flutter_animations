@@ -122,7 +122,7 @@ class _AnimatedShoppingCartState extends State<AnimatedShoppingCart> {
               AnimatedPositioned(
                 top: showCart ? 0 : mediaQuery.height,
                 curve: Curves.easeOutQuad,
-                duration: const Duration(milliseconds: 700),
+                duration: const Duration(milliseconds: 800),
                 child: GestureDetector(
                   onTap: () {},
                   onVerticalDragEnd: (details) {
@@ -403,7 +403,7 @@ class _AnimatedShoppingCartState extends State<AnimatedShoppingCart> {
                                       transitionDuration:
                                           const Duration(milliseconds: 700),
                                       reverseTransitionDuration:
-                                          const Duration(milliseconds: 700),
+                                          const Duration(milliseconds: 800),
                                       pageBuilder: (context, animation,
                                               secondaryAnimation) =>
                                           FadeTransition(
