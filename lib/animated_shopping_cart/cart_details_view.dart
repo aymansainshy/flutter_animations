@@ -11,9 +11,9 @@ class CartDetailsView extends StatefulWidget {
   });
 
   final Product product;
+
   // final VoidCallback onAddProduct;
   final Function(Product product) onAddProduct;
-
 
   @override
   State<CartDetailsView> createState() => _CartDetailsViewState();
@@ -28,7 +28,6 @@ class _CartDetailsViewState extends State<CartDetailsView> {
       onWillPop: () async {
         Navigator.of(context).pop(true);
         return true;
-
       },
       child: Scaffold(
         // backgroundColor: Colors.grey.shade300,
@@ -108,16 +107,33 @@ class _CartDetailsViewState extends State<CartDetailsView> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                const Icon(Icons.remove),
+                                 IconButton(
+                                    onPressed: () {
+                                      if(widget.product.quantity > 1) {
+                                        setState(() {
+                                          widget.product.quantity --;
+                                        });
+                                      }
+                                    },
+                                   icon: const Icon( Icons.remove),
+                                ),
                                 Text(
-                                  '1',
+                                  '${widget.product.quantity}',
                                   style: GoogleFonts.quicksand().copyWith(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.black,
                                   ),
                                 ),
-                                const Icon(Icons.add),
+                                IconButton(
+                                  onPressed: () {
+                                      setState(() {
+                                        widget.product.quantity ++;
+                                      });
+                                  },
+                                  icon: const Icon( Icons.add),
+                                ),
+                                // const Icon(Icons.add),
                               ],
                             ),
                           ),
@@ -197,9 +213,9 @@ class _CartDetailsViewState extends State<CartDetailsView> {
                           Navigator.of(context).pop('Yes');
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor:
-                              Colors.orange.shade300, // Background color
-                        ),
+                            backgroundColor:
+                                const Color(0xffFEC449) // Background color
+                            ),
                         child: SizedBox(
                           height: 50,
                           width: MediaQuery.sizeOf(context).width / 2,
