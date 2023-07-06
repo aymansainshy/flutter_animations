@@ -4,12 +4,14 @@ import 'package:flutter_animation/animated_shopping_cart/cart_details_view.dart'
 import 'package:google_fonts/google_fonts.dart';
 
 class Product {
+  final int id;
   final String title;
   final String description;
   final String imageUrl;
   final double price;
 
   Product({
+    required this.id,
     required this.title,
     required this.description,
     required this.imageUrl,
@@ -19,6 +21,7 @@ class Product {
 
 final List<Product> _products = [
   Product(
+    id: 1,
     title: "Apple IPhone 15",
     description:
         "This character description generator will generate a fairly random description of a belonging to a random race. However, some aspects of the descriptions will remain the same, this is done to keep the general structure the same, while still randomizing the important details. The generator does take into account which race is randomly picked, and changes some of the details accordingly. For example, if the character is an elf, they will have a higher chance of looking good and clean, they will, of course, have an elvish name, and tend to be related to more elvish related towns and people.",
@@ -26,6 +29,7 @@ final List<Product> _products = [
     price: 1998.8,
   ),
   Product(
+    id: 2,
     title: "IPhone 15",
     description:
         "This character description generator will generate a fairly random description of a belonging to a random race. However, some aspects of the descriptions will remain the same, this is done to keep the general structure the same, while still randomizing the important details. The generator does take into account which race is randomly picked, and changes some of the details accordingly. For example, if the character is an elf, they will have a higher chance of looking good and clean, they will, of course, have an elvish name, and tend to be related to more elvish related towns and people.",
@@ -33,6 +37,7 @@ final List<Product> _products = [
     price: 1998.8,
   ),
   Product(
+    id: 3,
     title: "IPhone 15",
     description:
         "This character description generator will generate a fairly random description of a belonging to a random race. However, some aspects of the descriptions will remain the same, this is done to keep the general structure the same, while still randomizing the important details. The generator does take into account which race is randomly picked, and changes some of the details accordingly. For example, if the character is an elf, they will have a higher chance of looking good and clean, they will, of course, have an elvish name, and tend to be related to more elvish related towns and people.",
@@ -40,6 +45,7 @@ final List<Product> _products = [
     price: 1998.8,
   ),
   Product(
+    id: 5,
     title: "IPhone 15",
     description:
         "This character description generator will generate a fairly random description of a belonging to a random race. However, some aspects of the descriptions will remain the same, this is done to keep the general structure the same, while still randomizing the important details. The generator does take into account which race is randomly picked, and changes some of the details accordingly. For example, if the character is an elf, they will have a higher chance of looking good and clean, they will, of course, have an elvish name, and tend to be related to more elvish related towns and people.",
@@ -47,6 +53,7 @@ final List<Product> _products = [
     price: 1998.8,
   ),
   Product(
+    id: 6,
     title: "IPhone 15",
     description:
         "This character description generator will generate a fairly random description of a belonging to a random race. However, some aspects of the descriptions will remain the same, this is done to keep the general structure the same, while still randomizing the important details. The generator does take into account which race is randomly picked, and changes some of the details accordingly. For example, if the character is an elf, they will have a higher chance of looking good and clean, they will, of course, have an elvish name, and tend to be related to more elvish related towns and people.",
@@ -54,6 +61,7 @@ final List<Product> _products = [
     price: 1998.8,
   ),
   Product(
+    id: 7,
     title: "IPhone 15",
     description:
         "This character description generator will generate a fairly random description of a belonging to a random race. However, some aspects of the descriptions will remain the same, this is done to keep the general structure the same, while still randomizing the important details. The generator does take into account which race is randomly picked, and changes some of the details accordingly. For example, if the character is an elf, they will have a higher chance of looking good and clean, they will, of course, have an elvish name, and tend to be related to more elvish related towns and people.",
@@ -61,6 +69,7 @@ final List<Product> _products = [
     price: 1998.8,
   ),
   Product(
+    id: 8,
     title: "IPhone 15",
     description:
         "This character description generator will generate a fairly random description of a belonging to a random race. However, some aspects of the descriptions will remain the same, this is done to keep the general structure the same, while still randomizing the important details. The generator does take into account which race is randomly picked, and changes some of the details accordingly. For example, if the character is an elf, they will have a higher chance of looking good and clean, they will, of course, have an elvish name, and tend to be related to more elvish related towns and people.",
@@ -78,14 +87,19 @@ class AnimatedShoppingCart extends StatefulWidget {
 
 class _AnimatedShoppingCartState extends State<AnimatedShoppingCart> {
   bool showCart = false;
+  bool showDetails = false;
+
   final List<Product> products = [..._products];
 
-  final List<Product> shoppingCart = [];
+  final List<Product> cartItems = [];
 
   void addToCart(Product product) {
     setState(() {
-      shoppingCart.add(product);
+      cartItems.add(product);
     });
+
+    print(product.title);
+    print(cartItems.length);
   }
 
   @override
@@ -101,17 +115,75 @@ class _AnimatedShoppingCartState extends State<AnimatedShoppingCart> {
               setState(() {
                 showCart = !showCart;
               });
+              print("Details $showDetails");
+              print("Show Cart $showCart");
             },
             child: Container(
               color: Colors.black87,
+              // height: mediaQuery.height,
+              // width: mediaQuery.width,
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
+                child: SafeArea(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 90),
+                      Text(
+                        "Cart",
+                        style: GoogleFonts.quicksand().copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 25,
+                        ),
+                      ),
+                      const SizedBox(height: 30),
+                      Expanded(
+                        child: cartItems.isEmpty
+                            ? const SizedBox(
+                                child: Center(
+                                  child: Text(
+                                    "No Products",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              )
+                            : Container(
+                                color: Colors.red,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: ListView.builder(
+                                    itemCount: cartItems.length,
+                                    itemBuilder: (context, index) {
+                                      return Card(
+                                        child: Text(cartItems[index].title),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ),
+                      ),
+                      const SizedBox(height: 100),
+                    ],
+                  ),
+                ),
+              ),
             ),
           ),
           AnimatedPositioned(
-            top: showCart ? -650 : 0,
+            top: showCart ? -770 : 0,
+            bottom: showDetails
+                ? 0
+                : showCart
+                    ? 770
+                    : 120,
             curve: Curves.easeInCubic,
-            duration: const Duration(milliseconds: 400),
+            duration: const Duration(milliseconds: 300),
             child: Container(
-              height: mediaQuery.height - 140,
+              height: mediaQuery.height,
               width: mediaQuery.width,
               decoration: BoxDecoration(
                 color: Colors.grey.shade300,
@@ -127,8 +199,7 @@ class _AnimatedShoppingCartState extends State<AnimatedShoppingCart> {
                     child: Container(
                       height: 50,
                       // color: Colors.lightGreen,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 5),
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Row(
                         children: [
                           const Icon(
@@ -164,7 +235,7 @@ class _AnimatedShoppingCartState extends State<AnimatedShoppingCart> {
                       padding: const EdgeInsets.symmetric(horizontal: 15),
                       itemBuilder: (context, index) {
                         return GestureDetector(
-                          onTap: () {
+                          onTap: () async {
                             // Navigator.of(context).push(
                             //   MaterialPageRoute(
                             //     builder: (context) {
@@ -176,24 +247,25 @@ class _AnimatedShoppingCartState extends State<AnimatedShoppingCart> {
                             //   ),
                             // );
 
-                            Navigator.of(context).push(
+                            setState(() {
+                              showDetails = true;
+                            });
+
+                            final result = await Navigator.of(context).push(
                               PageRouteBuilder(
                                 transitionDuration:
-                                    const Duration(milliseconds: 150),
+                                    const Duration(milliseconds: 700),
                                 reverseTransitionDuration:
-                                    const Duration(milliseconds: 150),
+                                    const Duration(milliseconds: 300),
                                 pageBuilder:
                                     (context, animation, secondaryAnimation) =>
                                         FadeTransition(
                                   opacity: animation,
                                   child: CartDetailsView(
-                                    productIndex: index,
-                                    product: products[index],
-                                      onAddProduct: (product){
-                                      addToCart(product);
-                                      print(product.title);
-                                    }
-                                  ),
+                                      product: products[index],
+                                      onAddProduct: (product) {
+                                        addToCart(product);
+                                      }),
                                 ),
                                 transitionsBuilder: (context, animation,
                                     secondaryAnimation, child) {
@@ -201,6 +273,12 @@ class _AnimatedShoppingCartState extends State<AnimatedShoppingCart> {
                                 },
                               ),
                             );
+
+                            if (result != null) {
+                              setState(() {
+                                showDetails = false;
+                              });
+                            }
                           },
                           child: Card(
                             color: Colors.white,
@@ -212,7 +290,7 @@ class _AnimatedShoppingCartState extends State<AnimatedShoppingCart> {
                                   SizedBox(
                                     height: 120,
                                     child: Hero(
-                                      tag: index,
+                                      tag: products[index].id,
                                       child: Image.asset(
                                         products[index].imageUrl,
                                       ),
@@ -275,6 +353,63 @@ class _AnimatedShoppingCartState extends State<AnimatedShoppingCart> {
                     ),
                   ),
                 ],
+              ),
+            ),
+          ),
+          AnimatedPositioned(
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeInCubic,
+            bottom: showDetails || showCart ? -80 : 40,
+            child: SizedBox(
+              // color: Colors.white10,
+              width: mediaQuery.width,
+              height: 60,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                child: Row(
+                  children: [
+                    Text(
+                      "Cart",
+                      style: GoogleFonts.quicksand().copyWith(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 25,
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: cartItems.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: CircleAvatar(
+                              radius: 25,
+                              backgroundColor: Colors.white,
+                              child: SizedBox(
+                                height: 30,
+                                child: Image.asset(
+                                  cartItems[index].imageUrl,
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                    CircleAvatar(
+                      radius: 20,
+                      backgroundColor: Colors.orange.shade300,
+                      child: Text(
+                        cartItems.isEmpty ? "0" : cartItems.length.toString(),
+                        style: GoogleFonts.lexendDeca().copyWith(
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
