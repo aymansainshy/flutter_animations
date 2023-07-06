@@ -107,12 +107,12 @@ class _AnimatedShoppingCartState extends State<AnimatedShoppingCart> {
       body: GestureDetector(
         onTap: () {},
         onVerticalDragEnd: (details) {
-          // print("End Details $details");
-          // if (details.globalPosition == Offset(details.globalPosition.dx, 780.0)) {
-          setState(() {
-            showCart = !showCart;
-          });
-          // }
+          // print("Iner@@1 Cart Details $details");
+          if (details.primaryVelocity! < 0.0) {
+            setState(() {
+              showCart = !showCart;
+            });
+          }
         },
         child: Container(
           color: Colors.black,
@@ -126,12 +126,12 @@ class _AnimatedShoppingCartState extends State<AnimatedShoppingCart> {
                 child: GestureDetector(
                   onTap: () {},
                   onVerticalDragEnd: (details) {
-                    // print("End Details $details");
-                    // if (details.globalPosition == Offset(details.globalPosition.dx, 780.0)) {
-                    setState(() {
-                      showCart = !showCart;
-                    });
-                    // }
+                    // print("Iner@@2 Cart  Details ${details.primaryVelocity}");
+                    if (details.primaryVelocity! > 0.0) {
+                      setState(() {
+                        showCart = !showCart;
+                      });
+                    }
                   },
                   child: Container(
                     height: mediaQuery.height,
@@ -494,12 +494,11 @@ class _AnimatedShoppingCartState extends State<AnimatedShoppingCart> {
                 child: GestureDetector(
                   onTap: () {},
                   onVerticalDragEnd: (details) {
-                    // print("End Details $details");
-                    // if (details.globalPosition == Offset(details.globalPosition.dx, 780.0)) {
-                    setState(() {
-                      showCart = !showCart;
-                    });
-                    // }
+                    if (details.primaryVelocity! < 0.0) {
+                      setState(() {
+                        showCart = !showCart;
+                      });
+                    }
                   },
                   child: SizedBox(
                     width: mediaQuery.width,
