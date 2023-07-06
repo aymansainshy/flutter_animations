@@ -89,6 +89,8 @@ class _AnimatedShoppingCartState extends State<AnimatedShoppingCart> {
   bool showCart = false;
   bool showDetails = false;
 
+  double storeHeight = 770;
+
   final List<Product> products = [..._products];
 
   final List<Product> cartItems = [];
@@ -97,9 +99,6 @@ class _AnimatedShoppingCartState extends State<AnimatedShoppingCart> {
     setState(() {
       cartItems.add(product);
     });
-
-    print(product.title);
-    print(cartItems.length);
   }
 
   @override
@@ -111,17 +110,17 @@ class _AnimatedShoppingCartState extends State<AnimatedShoppingCart> {
         alignment: AlignmentDirectional.topCenter,
         children: [
           GestureDetector(
+            onTap: () {},
             onVerticalDragEnd: (details) {
+              // print("End Details $details");
+              // if (details.globalPosition == Offset(details.globalPosition.dx, 780.0)) {
               setState(() {
                 showCart = !showCart;
               });
-              print("Details $showDetails");
-              print("Show Cart $showCart");
+              // }
             },
             child: Container(
               color: Colors.black87,
-              // height: mediaQuery.height,
-              // width: mediaQuery.width,
               child: Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
@@ -129,16 +128,16 @@ class _AnimatedShoppingCartState extends State<AnimatedShoppingCart> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const SizedBox(height: 90),
-                      Text(
-                        "Cart",
-                        style: GoogleFonts.quicksand().copyWith(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 25,
-                        ),
-                      ),
-                      const SizedBox(height: 30),
+                      const SizedBox(height: 190),
+                      // Text(
+                      //   "Cart",
+                      //   style: GoogleFonts.quicksand().copyWith(
+                      //     color: Colors.white,
+                      //     fontWeight: FontWeight.bold,
+                      //     fontSize: 25,
+                      //   ),
+                      // ),
+                      // const SizedBox(height: 30),
                       Expanded(
                         child: cartItems.isEmpty
                             ? const SizedBox(
@@ -174,14 +173,14 @@ class _AnimatedShoppingCartState extends State<AnimatedShoppingCart> {
             ),
           ),
           AnimatedPositioned(
-            top: showCart ? -770 : 0,
+            top: showCart ? -storeHeight : 0,
             bottom: showDetails
                 ? 0
                 : showCart
-                    ? 770
+                    ? storeHeight
                     : 120,
-            curve: Curves.easeInCubic,
-            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeOutQuad,
+            duration: const Duration(milliseconds: 500),
             child: Container(
               height: mediaQuery.height,
               width: mediaQuery.width,
@@ -224,131 +223,111 @@ class _AnimatedShoppingCartState extends State<AnimatedShoppingCart> {
                     ),
                   ),
                   Expanded(
-                    child: GridView.builder(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 5.0,
-                        childAspectRatio: 0.75,
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.only(
+                        bottomLeft: Radius.circular(60),
+                        bottomRight: Radius.circular(60),
                       ),
-                      itemCount: products.length,
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
-                      itemBuilder: (context, index) {
-                        return GestureDetector(
-                          onTap: () async {
-                            // Navigator.of(context).push(
-                            //   MaterialPageRoute(
-                            //     builder: (context) {
-                            //       return CartDetailsView(
-                            //         productIndex: index,
-                            //         product: products[index],
-                            //       );
-                            //     },
-                            //   ),
-                            // );
+                      child: GridView.builder(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 5.0,
+                          childAspectRatio: 0.75,
+                        ),
+                        itemCount: products.length,
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                            onTap: () async {
+                              // Navigator.of(context).push(
+                              //   MaterialPageRoute(
+                              //     builder: (context) {
+                              //       return CartDetailsView(
+                              //         productIndex: index,
+                              //         product: products[index],
+                              //       );
+                              //     },
+                              //   ),
+                              // );
 
-                            setState(() {
-                              showDetails = true;
-                            });
-
-                            final result = await Navigator.of(context).push(
-                              PageRouteBuilder(
-                                transitionDuration:
-                                    const Duration(milliseconds: 700),
-                                reverseTransitionDuration:
-                                    const Duration(milliseconds: 300),
-                                pageBuilder:
-                                    (context, animation, secondaryAnimation) =>
-                                        FadeTransition(
-                                  opacity: animation,
-                                  child: CartDetailsView(
-                                      product: products[index],
-                                      onAddProduct: (product) {
-                                        addToCart(product);
-                                      }),
-                                ),
-                                transitionsBuilder: (context, animation,
-                                    secondaryAnimation, child) {
-                                  return child;
-                                },
-                              ),
-                            );
-
-                            if (result != null) {
                               setState(() {
-                                showDetails = false;
+                                showDetails = true;
                               });
-                            }
-                          },
-                          child: Card(
-                            color: Colors.white,
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 15.0),
-                              child: Column(
-                                children: [
-                                  SizedBox(
-                                    height: 120,
-                                    child: Hero(
-                                      tag: products[index].id,
-                                      child: Image.asset(
-                                        products[index].imageUrl,
+
+                              final result = await Navigator.of(context).push(
+                                PageRouteBuilder(
+                                  transitionDuration:
+                                      const Duration(milliseconds: 700),
+                                  reverseTransitionDuration:
+                                      const Duration(milliseconds: 300),
+                                  pageBuilder: (context, animation,
+                                          secondaryAnimation) =>
+                                      FadeTransition(
+                                    opacity: animation,
+                                    child: CartDetailsView(
+                                        product: products[index],
+                                        onAddProduct: (product) {
+                                          addToCart(product);
+                                        }),
+                                  ),
+                                  transitionsBuilder: (context, animation,
+                                      secondaryAnimation, child) {
+                                    return child;
+                                  },
+                                ),
+                              );
+
+                              if (result != null) {
+                                setState(() {
+                                  showDetails = false;
+                                });
+                              }
+                            },
+                            child: Card(
+                              color: Colors.white,
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 15.0),
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      height: 120,
+                                      child: Hero(
+                                        tag: products[index].id,
+                                        child: Image.asset(
+                                          products[index].imageUrl,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  const Spacer(),
-                                  Text(
-                                    "\$ ${products[index].price}",
-                                    style: GoogleFonts.lexendDeca().copyWith(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
+                                    const Spacer(),
+                                    Text(
+                                      "\$ ${products[index].price}",
+                                      style: GoogleFonts.lexendDeca().copyWith(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
-                                  ),
-                                  const SizedBox(height: 8),
-                                  Text(
-                                    products[index].title,
-                                    style: GoogleFonts.quicksand().copyWith(
-                                      fontSize: 16,
+                                    const SizedBox(height: 8),
+                                    Text(
+                                      products[index].title,
+                                      style: GoogleFonts.quicksand().copyWith(
+                                        fontSize: 16,
+                                      ),
                                     ),
-                                  ),
-                                  Text(
-                                    "500 gm",
-                                    style: GoogleFonts.quicksand().copyWith(
-                                      fontSize: 14,
-                                      color: Colors.grey,
+                                    Text(
+                                      "500 gm",
+                                      style: GoogleFonts.quicksand().copyWith(
+                                        fontSize: 14,
+                                        color: Colors.grey,
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                  Container(
-                    height: 20,
-                    margin: const EdgeInsets.only(left: 15, right: 15),
-                    decoration: const BoxDecoration(
-                      color: Colors.transparent,
-                      // gradient: LinearGradient(
-                      //   begin: Alignment.bottomCenter,
-                      //   end: Alignment.topCenter,
-                      //   colors: [
-                      //     Colors.transparent,
-                      //     Colors.transparent,
-                      //   ],
-                      // ),
-                      // boxShadow: [
-                      //   BoxShadow(
-                      //     color: Colors.transparent, //New
-                      //     blurRadius: 10.0,
-                      //     offset: Offset(0, 0),
-                      //   ),
-                      // ],
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(100),
-                        bottomRight: Radius.circular(100),
+                          );
+                        },
                       ),
                     ),
                   ),
@@ -357,58 +336,69 @@ class _AnimatedShoppingCartState extends State<AnimatedShoppingCart> {
             ),
           ),
           AnimatedPositioned(
-            duration: const Duration(milliseconds: 300),
-            curve: Curves.easeInCubic,
-            bottom: showDetails || showCart ? -80 : 40,
-            child: SizedBox(
-              // color: Colors.white10,
-              width: mediaQuery.width,
-              height: 60,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                child: Row(
-                  children: [
-                    Text(
-                      "Cart",
-                      style: GoogleFonts.quicksand().copyWith(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 25,
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: cartItems.length,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: CircleAvatar(
-                              radius: 25,
-                              backgroundColor: Colors.white,
-                              child: SizedBox(
-                                height: 30,
-                                child: Image.asset(
-                                  cartItems[index].imageUrl,
-                                ),
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                    CircleAvatar(
-                      radius: 20,
-                      backgroundColor: Colors.orange.shade300,
-                      child: Text(
-                        cartItems.isEmpty ? "0" : cartItems.length.toString(),
-                        style: GoogleFonts.lexendDeca().copyWith(
-                          fontSize: 18,
+            duration: const Duration(milliseconds: 500),
+            curve: Curves.easeOutQuad,
+            bottom: showDetails? -80 :  showCart ? storeHeight - 80 :40,
+            // bottom: showDetails || showCart ? -80 : 40,
+            child: GestureDetector(
+              onTap: () {},
+              onVerticalDragEnd: (details) {
+                // print("End Details $details");
+                // if (details.globalPosition == Offset(details.globalPosition.dx, 780.0)) {
+                setState(() {
+                  showCart = !showCart;
+                });
+                // }
+              },
+              child: SizedBox(
+                width: mediaQuery.width,
+                height: 60,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                  child: Row(
+                    children: [
+                      Text(
+                        "Cart",
+                        style: GoogleFonts.quicksand().copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 25,
                         ),
                       ),
-                    ),
-                  ],
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: showCart ? const SizedBox():  ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: cartItems.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: CircleAvatar(
+                                radius: 25,
+                                backgroundColor: Colors.white,
+                                child: SizedBox(
+                                  height: 30,
+                                  child: Image.asset(
+                                    cartItems[index].imageUrl,
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                      CircleAvatar(
+                        radius: 20,
+                        backgroundColor: Colors.orange.shade300,
+                        child: Text(
+                          cartItems.isEmpty ? "0" : cartItems.length.toString(),
+                          style: GoogleFonts.lexendDeca().copyWith(
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
