@@ -58,6 +58,15 @@ final List<Product> _products = [
     price: 1998.8,
     quantity: 1,
   ),
+  Product(
+    id: 6,
+    title: "IPhone 15",
+    description:
+        "This character description generator will generate a fairly random description of a belonging to a random race. However, some aspects of the descriptions will remain the same, this is done to keep the general structure the same, while still randomizing the important details. The generator does take into account which race is randomly picked, and changes some of the details accordingly. For example, if the character is an elf, they will have a higher chance of looking good and clean, they will, of course, have an elvish name, and tend to be related to more elvish related towns and people.",
+    imageUrl: "assets/animated_list_app/images/inphon1.png",
+    price: 1998.8,
+    quantity: 1,
+  ),
 ];
 
 class AnimatedShoppingCart extends StatefulWidget {
