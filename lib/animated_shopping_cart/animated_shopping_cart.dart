@@ -9,6 +9,7 @@ class Product {
   final String description;
   final String imageUrl;
   final double price;
+  late int quantity;
 
   Product({
     required this.id,
@@ -16,6 +17,7 @@ class Product {
     required this.description,
     required this.imageUrl,
     required this.price,
+    required this.quantity,
   });
 }
 
@@ -27,6 +29,7 @@ final List<Product> _products = [
         "This character description generator will generate a fairly random description of a belonging to a random race. However, some aspects of the descriptions will remain the same, this is done to keep the general structure the same, while still randomizing the important details. The generator does take into account which race is randomly picked, and changes some of the details accordingly. For example, if the character is an elf, they will have a higher chance of looking good and clean, they will, of course, have an elvish name, and tend to be related to more elvish related towns and people.",
     imageUrl: "assets/animated_list_app/images/inphon1.png",
     price: 1998.8,
+    quantity: 1,
   ),
   Product(
     id: 2,
@@ -35,6 +38,7 @@ final List<Product> _products = [
         "This character description generator will generate a fairly random description of a belonging to a random race. However, some aspects of the descriptions will remain the same, this is done to keep the general structure the same, while still randomizing the important details. The generator does take into account which race is randomly picked, and changes some of the details accordingly. For example, if the character is an elf, they will have a higher chance of looking good and clean, they will, of course, have an elvish name, and tend to be related to more elvish related towns and people.",
     imageUrl: "assets/animated_list_app/images/inphon1.png",
     price: 1998.8,
+    quantity: 1,
   ),
   Product(
     id: 3,
@@ -43,6 +47,7 @@ final List<Product> _products = [
         "This character description generator will generate a fairly random description of a belonging to a random race. However, some aspects of the descriptions will remain the same, this is done to keep the general structure the same, while still randomizing the important details. The generator does take into account which race is randomly picked, and changes some of the details accordingly. For example, if the character is an elf, they will have a higher chance of looking good and clean, they will, of course, have an elvish name, and tend to be related to more elvish related towns and people.",
     imageUrl: "assets/animated_list_app/images/inphon1.png",
     price: 1998.8,
+    quantity: 1,
   ),
   Product(
     id: 5,
@@ -51,30 +56,7 @@ final List<Product> _products = [
         "This character description generator will generate a fairly random description of a belonging to a random race. However, some aspects of the descriptions will remain the same, this is done to keep the general structure the same, while still randomizing the important details. The generator does take into account which race is randomly picked, and changes some of the details accordingly. For example, if the character is an elf, they will have a higher chance of looking good and clean, they will, of course, have an elvish name, and tend to be related to more elvish related towns and people.",
     imageUrl: "assets/animated_list_app/images/inphon1.png",
     price: 1998.8,
-  ),
-  Product(
-    id: 6,
-    title: "IPhone 15",
-    description:
-        "This character description generator will generate a fairly random description of a belonging to a random race. However, some aspects of the descriptions will remain the same, this is done to keep the general structure the same, while still randomizing the important details. The generator does take into account which race is randomly picked, and changes some of the details accordingly. For example, if the character is an elf, they will have a higher chance of looking good and clean, they will, of course, have an elvish name, and tend to be related to more elvish related towns and people.",
-    imageUrl: "assets/animated_list_app/images/inphon1.png",
-    price: 1998.8,
-  ),
-  Product(
-    id: 7,
-    title: "IPhone 15",
-    description:
-        "This character description generator will generate a fairly random description of a belonging to a random race. However, some aspects of the descriptions will remain the same, this is done to keep the general structure the same, while still randomizing the important details. The generator does take into account which race is randomly picked, and changes some of the details accordingly. For example, if the character is an elf, they will have a higher chance of looking good and clean, they will, of course, have an elvish name, and tend to be related to more elvish related towns and people.",
-    imageUrl: "assets/animated_list_app/images/inphon1.png",
-    price: 1998.8,
-  ),
-  Product(
-    id: 8,
-    title: "IPhone 15",
-    description:
-        "This character description generator will generate a fairly random description of a belonging to a random race. However, some aspects of the descriptions will remain the same, this is done to keep the general structure the same, while still randomizing the important details. The generator does take into account which race is randomly picked, and changes some of the details accordingly. For example, if the character is an elf, they will have a higher chance of looking good and clean, they will, of course, have an elvish name, and tend to be related to more elvish related towns and people.",
-    imageUrl: "assets/animated_list_app/images/inphon1.png",
-    price: 1998.8,
+    quantity: 1,
   ),
 ];
 
@@ -96,6 +78,13 @@ class _AnimatedShoppingCartState extends State<AnimatedShoppingCart> {
   final List<Product> cartItems = [];
 
   void addToCart(Product product) {
+    for (Product cartProduct in cartItems) {
+      if (cartProduct.id == product.id) {
+        cartProduct.quantity++;
+        return;
+      }
+    }
+
     setState(() {
       cartItems.add(product);
     });
@@ -294,7 +283,7 @@ class _AnimatedShoppingCartState extends State<AnimatedShoppingCart> {
                                     SizedBox(
                                       height: 120,
                                       child: Hero(
-                                        tag: products[index].id,
+                                        tag: "${products[index].id}",
                                         child: Image.asset(
                                           products[index].imageUrl,
                                         ),
@@ -338,7 +327,11 @@ class _AnimatedShoppingCartState extends State<AnimatedShoppingCart> {
           AnimatedPositioned(
             duration: const Duration(milliseconds: 500),
             curve: Curves.easeOutQuad,
-            bottom: showDetails? -80 :  showCart ? storeHeight - 80 :40,
+            bottom: showDetails
+                ? -80
+                : showCart
+                    ? storeHeight - 80
+                    : 40,
             // bottom: showDetails || showCart ? -80 : 40,
             child: GestureDetector(
               onTap: () {},
@@ -367,25 +360,30 @@ class _AnimatedShoppingCartState extends State<AnimatedShoppingCart> {
                       ),
                       const SizedBox(width: 10),
                       Expanded(
-                        child: showCart ? const SizedBox():  ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: cartItems.length,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding: const EdgeInsets.all(5.0),
-                              child: CircleAvatar(
-                                radius: 25,
-                                backgroundColor: Colors.white,
-                                child: SizedBox(
-                                  height: 30,
-                                  child: Image.asset(
-                                    cartItems[index].imageUrl,
-                                  ),
-                                ),
+                        child: showCart
+                            ? const SizedBox()
+                            : ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: cartItems.length,
+                                itemBuilder: (context, index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.all(5.0),
+                                    child: Hero(
+                                      tag: "${cartItems[index].id}cart",
+                                      child: CircleAvatar(
+                                        radius: 25,
+                                        backgroundColor: Colors.white,
+                                        child: SizedBox(
+                                          height: 30,
+                                          child: Image.asset(
+                                            cartItems[index].imageUrl,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
                               ),
-                            );
-                          },
-                        ),
                       ),
                       CircleAvatar(
                         radius: 20,

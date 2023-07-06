@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animation/animated_shopping_cart/animated_shopping_cart.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class CartDetailsView extends StatelessWidget {
+class CartDetailsView extends StatefulWidget {
   const CartDetailsView({
     required this.product,
     required this.onAddProduct,
@@ -11,8 +11,16 @@ class CartDetailsView extends StatelessWidget {
   });
 
   final Product product;
-
+  // final VoidCallback onAddProduct;
   final Function(Product product) onAddProduct;
+
+
+  @override
+  State<CartDetailsView> createState() => _CartDetailsViewState();
+}
+
+class _CartDetailsViewState extends State<CartDetailsView> {
+  late String heroTage = "";
 
   @override
   Widget build(BuildContext context) {
@@ -61,14 +69,14 @@ class CartDetailsView extends StatelessWidget {
                           height: 350,
                           width: 350,
                           child: Hero(
-                            tag: product.id,
-                            child: Image.asset(product.imageUrl),
+                            tag: "${widget.product.id}$heroTage",
+                            child: Image.asset(widget.product.imageUrl),
                           ),
                         ),
                       ),
                       const SizedBox(height: 30),
                       Text(
-                        product.title,
+                        widget.product.title,
                         style: GoogleFonts.lexendDeca().copyWith(
                           fontSize: 25,
                           fontWeight: FontWeight.bold,
@@ -114,7 +122,7 @@ class CartDetailsView extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            "\$ ${product.price.toString()}",
+                            "\$ ${widget.product.price.toString()}",
                             style: GoogleFonts.lexendDeca().copyWith(
                               fontSize: 25,
                               fontWeight: FontWeight.bold,
@@ -133,7 +141,7 @@ class CartDetailsView extends StatelessWidget {
                       ),
                       const SizedBox(height: 10),
                       Text(
-                        product.description,
+                        widget.product.description,
                         style: GoogleFonts.quicksand().copyWith(
                           fontSize: 16,
                           color: Colors.black54,
@@ -182,7 +190,10 @@ class CartDetailsView extends StatelessWidget {
                       const Spacer(),
                       ElevatedButton(
                         onPressed: () {
-                          onAddProduct(product);
+                          setState(() {
+                            heroTage = "cart";
+                          });
+                          widget.onAddProduct(widget.product);
                           Navigator.of(context).pop('Yes');
                         },
                         style: ElevatedButton.styleFrom(
