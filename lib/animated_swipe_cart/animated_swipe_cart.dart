@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:swipe_deck/swipe_deck.dart';
 
-final List<Color> colors = [
-  Colors.red,
-  Colors.purple,
-  Colors.yellow,
-  Colors.green,
+final List<String> colors = [
+  "assets/magazine/images/image1.jpeg",
+  "assets/magazine/images/image2.jpeg",
+  "assets/magazine/images/image3.jpeg",
+  "assets/magazine/images/image5.jpeg",
+  "assets/magazine/images/image6.jpeg",
 ];
 
 class AnimatedSwipeCart extends StatelessWidget {
@@ -121,7 +122,7 @@ class TopContainer extends StatelessWidget {
               child: Row(
                 children: [
                   Text("All Magazines",
-                      style: GoogleFonts.playfairDisplay().copyWith(
+                      style: GoogleFonts.poppins().copyWith(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                       )),
@@ -183,14 +184,15 @@ class StackedCard extends StatelessWidget {
           print(colors[index]);
         },
         widgets: colors
-            .map((e) => GestureDetector(
+            .map((image) => GestureDetector(
                   onTap: () {
-                    print(e);
+                    print(image);
                   },
                   child: ClipRRect(
                       borderRadius: BorderRadius.zero,
-                      child: Container(
-                        color: e,
+                      child: Image.asset(
+                        image,
+                        fit: BoxFit.cover,
                       )),
                 ))
             .toList(),
