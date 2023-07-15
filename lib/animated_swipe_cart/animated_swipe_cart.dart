@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:swipe_deck/swipe_deck.dart';
@@ -8,6 +9,12 @@ final List<String> colors = [
   "assets/magazine/images/image3.jpeg",
   "assets/magazine/images/image5.jpeg",
   "assets/magazine/images/image6.jpeg",
+];
+
+final List<String> bottomList = [
+  "assets/magazine/images/image7.jpeg",
+  "assets/magazine/images/image8.jpeg",
+  "assets/magazine/images/image9.jpeg",
 ];
 
 class AnimatedSwipeCart extends StatelessWidget {
@@ -59,7 +66,35 @@ class AnimatedSwipeCart extends StatelessWidget {
             child: Container(
               height: 100,
               width: mediaQuery.width,
-              color: Colors.purple,
+              color: Colors.white,
+              padding: const EdgeInsets.only(left: 20, right: 20),
+              child: SafeArea(
+                child: Transform.translate(
+                  offset: const Offset(0, -45),
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Icon(
+                        Icons.home,
+                        size: 30,
+                      ),
+                      Icon(
+                        CupertinoIcons.bag,
+                        size: 30,
+                      ),
+                      Icon(
+                        CupertinoIcons.smiley,
+                        size: 30,
+                      ),
+                      Icon(
+                        CupertinoIcons.smallcircle_circle,
+                        size: 30,
+                      )
+                    ],
+                  ),
+                ),
+              ),
             ),
           ),
         ],
@@ -82,19 +117,50 @@ class TopContainer extends StatelessWidget {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 18),
               child: Row(
                 children: [
                   Container(
                     height: 50,
-                    width: 150,
-                    color: Colors.red,
+                    width: 170,
+                    // color: Colors.red,
+                    child: Row(
+                      children: [
+                        Stack(
+                          children: [
+                            Transform.translate(
+                              offset: const Offset(-2, 4),
+                              child: const CircleAvatar(
+                                radius: 10,
+                                backgroundColor: Colors.greenAccent,
+                              ),
+                            ),
+                            Transform.translate(
+                              offset: const Offset(8, -4),
+                              child: const CircleAvatar(
+                                radius: 11,
+                                backgroundColor: Colors.red,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(width: 15),
+                        Text(
+                          "Magaz",
+                          style: GoogleFonts.poppins().copyWith(
+                            color: Colors.white,
+                            fontSize: 35,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                   const Spacer(),
                   const Icon(
-                    Icons.security_rounded,
-                    color: Colors.red,
-                    size: 45,
+                    CupertinoIcons.barcode_viewfinder,
+                    color: Colors.white,
+                    size: 30,
                   )
                 ],
               ),
@@ -107,8 +173,22 @@ class TopContainer extends StatelessWidget {
               margin: const EdgeInsets.symmetric(horizontal: 18),
               width: mediaQuery.width,
               decoration: const BoxDecoration(
-                  color: Colors.red,
-                  borderRadius: BorderRadius.all(Radius.circular(30))),
+                color: Colors.white24,
+                borderRadius: BorderRadius.all(Radius.circular(30)),
+              ),
+              child: const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 15.0),
+                child: Row(
+                  children: [
+                    Icon(
+                      CupertinoIcons.search,
+                      color: Colors.white,
+                      size: 30,
+                    ),
+                    Spacer(),
+                  ],
+                ),
+              ),
             ),
 
             const SizedBox(height: 80),
@@ -141,17 +221,20 @@ class TopContainer extends StatelessWidget {
 
             SizedBox(
               height: 130,
-              child: ListView(
+              child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                children: List.generate(
-                    6,
-                    (index) => Container(
-                          width: 200,
-                          color: Colors.lightGreen,
-                          margin: const EdgeInsets.all(5),
-                        )),
+                itemCount: bottomList.length,
+                itemBuilder: (context, i) => Container(
+                  width: 200,
+                  color: Colors.lightGreen,
+                  margin: const EdgeInsets.all(5),
+                  child: Image.asset(
+                    bottomList[i],
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
-            )
+            ),
           ],
         ),
       ),
