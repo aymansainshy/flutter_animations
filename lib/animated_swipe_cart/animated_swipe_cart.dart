@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:swipe_deck/swipe_deck.dart';
 
+import 'details_view.dart';
+
 final List<String> colors = [
   "assets/magazine/images/image1.jpeg",
   "assets/magazine/images/image2.jpeg",
@@ -248,7 +250,8 @@ class StackedCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      child: SwipeDeck( // This is package That make card Swipe [ https://pub.dev/packages/swipe_deck ]
+      child: SwipeDeck(
+        // This is package That make card Swipe [ https://pub.dev/packages/swipe_deck ]
         startIndex: 2,
         emptyIndicator: const SizedBox(
           child: Center(
@@ -270,6 +273,11 @@ class StackedCard extends StatelessWidget {
             .map((image) => GestureDetector(
                   onTap: () {
                     print(image);
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => CardDetailsView(image: image),
+                      ),
+                    );
                   },
                   child: ClipRRect(
                       borderRadius: BorderRadius.zero,
