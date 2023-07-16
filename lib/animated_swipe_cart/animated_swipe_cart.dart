@@ -248,7 +248,7 @@ class StackedCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      child: SwipeDeck(
+      child: SwipeDeck( // This is package That make card Swipe [ https://pub.dev/packages/swipe_deck ]
         startIndex: 2,
         emptyIndicator: const SizedBox(
           child: Center(
@@ -258,13 +258,13 @@ class StackedCard extends StatelessWidget {
         cardSpreadInDegrees: 50.0,
         // Change the Spread of Background Cards
         onSwipeLeft: () {
-          print("USER SWIPED LEFT -> GOING TO NEXT WIDGET");
+          // print("USER SWIPED LEFT -> GOING TO NEXT WIDGET");
         },
         onSwipeRight: () {
-          print("USER SWIPED RIGHT -> GOING TO PREVIOUS WIDGET");
+          // print("USER SWIPED RIGHT -> GOING TO PREVIOUS WIDGET");
         },
         onChange: (index) {
-          print(colors[index]);
+          // print(colors[index]);
         },
         widgets: colors
             .map((image) => GestureDetector(
