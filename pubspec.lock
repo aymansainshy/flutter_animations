@@ -163,6 +163,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.9.1"
+  nested:
+    dependency: transitive
+    description:
+      name: nested
+      sha256: "03bac4c528c64c95c722ec99280375a6f2fc708eec17c7b3f07253b626cd2a20"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
   path:
     dependency: transitive
     description:
@@ -243,6 +251,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.2.4"
+  provider:
+    dependency: transitive
+    description:
+      name: provider
+      sha256: cdbe7530b12ecd9eb455bdaa2fcb8d4dad22e80b8afb4798b41479d5ce26847f
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.0.5"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -280,6 +296,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
+  swipe_deck:
+    dependency: "direct main"
+    description:
+      name: swipe_deck
+      sha256: d31547bc15e7bcfc1024f32830a6e298c53f272338c188a97ffa2ba1fc2a75c0
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.0"
   term_glyph:
     dependency: transitive
     description:
