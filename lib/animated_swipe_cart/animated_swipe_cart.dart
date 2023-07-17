@@ -273,9 +273,24 @@ class StackedCard extends StatelessWidget {
             .map((image) => GestureDetector(
                   onTap: () {
                     print(image);
+
+
                     Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => CardDetailsView(image: image),
+                      PageRouteBuilder(
+                        transitionDuration:
+                        const Duration(milliseconds: 300),
+                        reverseTransitionDuration:
+                        const Duration(milliseconds: 300),
+                        pageBuilder: (context, animation,
+                            secondaryAnimation) =>
+                            FadeTransition(
+                              opacity: animation,
+                              child:  CardDetailsView(image: image),
+                            ),
+                        transitionsBuilder: (context, animation,
+                            secondaryAnimation, child) {
+                          return child;
+                        },
                       ),
                     );
                   },
