@@ -278,9 +278,9 @@ class StackedCard extends StatelessWidget {
                     Navigator.of(context).push(
                       PageRouteBuilder(
                         transitionDuration:
-                        const Duration(milliseconds: 300),
+                        const Duration(milliseconds: 500),
                         reverseTransitionDuration:
-                        const Duration(milliseconds: 300),
+                        const Duration(milliseconds: 500),
                         pageBuilder: (context, animation,
                             secondaryAnimation) =>
                             FadeTransition(
