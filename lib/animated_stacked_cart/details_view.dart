@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animation/animated_stacked_cart/animated_swipe_cart.dart';
+import 'package:flutter_animation/animated_stacked_cart/animated_swipe_card.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CardDetailsView extends StatefulWidget {

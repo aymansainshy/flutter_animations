@@ -3,7 +3,7 @@ import 'package:flutter_animation/animated_counter/tween_animation_builder.dart'
 import 'package:flutter_animation/animated_list_app/animated_list_app.dart';
 import 'package:flutter_animation/animated_shopping_cart/animated_shopping_cart.dart';
 
-import 'animated_stacked_cart/animated_swipe_cart.dart';
+import 'animated_stacked_cart/animated_swipe_card.dart';
 
 void main() {
   runApp(const MyApp());
@@ -46,11 +46,11 @@ class Home extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => const AnimatedSwipeCart(),
+                    builder: (context) => const AnimatedSwipeCard(),
                   ),
                 );
               },
-              child: const Text("Animated Swipe Cart"),
+              child: const Text("Animated Swipe Card"),
             ),
           ),
           Center(

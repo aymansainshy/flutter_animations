@@ -47,8 +47,8 @@ final List<String> bottomList = [
   "assets/magazine/images/image9.jpeg",
 ];
 
-class AnimatedSwipeCart extends StatelessWidget {
-  const AnimatedSwipeCart({super.key});
+class AnimatedSwipeCard extends StatelessWidget {
+  const AnimatedSwipeCard({super.key});
 
   @override
   Widget build(BuildContext context) {
