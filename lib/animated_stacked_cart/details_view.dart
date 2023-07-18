@@ -181,7 +181,7 @@ class _CardDetailsViewState extends State<CardDetailsView> {
           SliverList(
             delegate: SliverChildListDelegate([
               SizedBox(
-                height: mediaQuery.height * 2.1,
+                height: mediaQuery.height * 2.5,
                 width: mediaQuery.width,
                 child: PageView.builder(
                   controller: _pageController,
@@ -239,7 +239,7 @@ class _CardDetailsViewState extends State<CardDetailsView> {
                             ],
                           ),
                           Transform.translate(
-                            offset: const Offset(0, -170),
+                            offset: const Offset(0, -180),
                             child: Column(
                               children: [
                                 Padding(
