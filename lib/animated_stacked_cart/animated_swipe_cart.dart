@@ -8,16 +8,37 @@ import 'details_view.dart';
 class CartItemModel {
   final int id;
   final String image;
+  final Color color;
 
-  CartItemModel({required this.id, required this.image});
+  CartItemModel({required this.id, required this.image, required this.color});
 }
 
 final List<CartItemModel> imageItems = [
-  CartItemModel(id: 1, image: "assets/magazine/images/image1.jpeg"),
-  CartItemModel(id: 2, image: "assets/magazine/images/image2.jpeg"),
-  CartItemModel(id: 3, image: "assets/magazine/images/image3.jpeg"),
-  CartItemModel(id: 4, image: "assets/magazine/images/image5.jpeg"),
-  CartItemModel(id: 5, image: "assets/magazine/images/image6.jpeg"),
+  CartItemModel(
+    id: 1,
+    color: Colors.red,
+    image: "assets/magazine/images/image1.jpeg",
+  ),
+  CartItemModel(
+    id: 2,
+    color: Colors.white70,
+    image: "assets/magazine/images/image2.jpeg",
+  ),
+  CartItemModel(
+    id: 3,
+    color: Colors.black,
+    image: "assets/magazine/images/image3.jpeg",
+  ),
+  CartItemModel(
+    id: 4,
+    color: Colors.green,
+    image: "assets/magazine/images/image5.jpeg",
+  ),
+  CartItemModel(
+    id: 5,
+    color: Colors.purpleAccent,
+    image: "assets/magazine/images/image6.jpeg",
+  ),
 ];
 
 final List<String> bottomList = [
@@ -279,7 +300,6 @@ class StackedCard extends StatelessWidget {
         widgets: imageItems
             .map((image) => GestureDetector(
                   onTap: () {
-
                     Navigator.of(context).push(
                       PageRouteBuilder(
                         transitionDuration: const Duration(milliseconds: 500),
@@ -288,7 +308,9 @@ class StackedCard extends StatelessWidget {
                         pageBuilder: (context, animation, secondaryAnimation) =>
                             FadeTransition(
                           opacity: animation,
-                          child: CardDetailsView(image: image),
+                          child: CardDetailsView(
+                              images: imageItems,
+                              currentIndex: imageItems.indexOf(image)),
                         ),
                         transitionsBuilder:
                             (context, animation, secondaryAnimation, child) {

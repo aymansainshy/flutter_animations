@@ -7,11 +7,13 @@ import 'package:google_fonts/google_fonts.dart';
 
 class CardDetailsView extends StatefulWidget {
   const CardDetailsView({
-    required this.image,
+    required this.currentIndex,
+    required this.images,
     super.key,
   });
 
-  final CartItemModel image;
+  final List<CartItemModel> images;
+  final int currentIndex;
 
   @override
   State<CardDetailsView> createState() => _CardDetailsViewState();
@@ -19,14 +21,16 @@ class CardDetailsView extends StatefulWidget {
 
 class _CardDetailsViewState extends State<CardDetailsView> {
   final _scrollController = ScrollController();
+  final _pageController = PageController();
 
   late double animatedHeight = 0;
   late double animatedWidth = 0;
 
   late String appBarTitle = "";
+  late int selectedIndex = widget.currentIndex;
 
   void scrollListener() {
-    print("Scroll Offsets : ${_scrollController.offset}");
+    // print("Scroll Offsets : ${_scrollController.offset}");
 
     if (_scrollController.offset > 460) {
       appBarTitle = "05";
@@ -36,21 +40,32 @@ class _CardDetailsViewState extends State<CardDetailsView> {
 
     animatedHeight = _scrollController.offset;
     animatedWidth = _scrollController.offset;
-
     setState(() {});
+  }
+
+  onPageChange(int index) {
+    setState(() {
+      selectedIndex = index;
+    });
+  }
+
+  pageChangeListener() {
+
   }
 
   @override
   void initState() {
     super.initState();
     _scrollController.addListener(scrollListener);
+    _pageController.addListener(pageChangeListener);
   }
 
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.sizeOf(context);
+
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: widget.images[selectedIndex].color,
       body: CustomScrollView(
         controller: _scrollController,
         clipBehavior: Clip.antiAlias,
@@ -109,7 +124,8 @@ class _CardDetailsViewState extends State<CardDetailsView> {
                       decoration: BoxDecoration(
                         color: Colors.white70,
                         image: DecorationImage(
-                          image: ExactAssetImage(widget.image.image),
+                          image: ExactAssetImage(
+                              widget.images[selectedIndex].image),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -130,7 +146,7 @@ class _CardDetailsViewState extends State<CardDetailsView> {
                         child: Transform.translate(
                           offset: Offset(0, 0 + animatedHeight * 0.45),
                           child: Image.asset(
-                            widget.image.image,
+                            widget.images[selectedIndex].image,
                             height: 335 + animatedHeight * 3,
                             width: 245 + animatedWidth * 1.4,
                           ),
@@ -163,73 +179,99 @@ class _CardDetailsViewState extends State<CardDetailsView> {
           ),
           SliverList(
             delegate: SliverChildListDelegate([
-              Stack(
-                children: [
-                  Transform.translate(
-                    offset: Offset(
-                        0 + animatedHeight * 0.4, -animatedHeight * -0.15),
-                    child: Transform.translate(
-                      offset: const Offset(0, -150),
-                      child: Text(
-                        "05",
-                        style: GoogleFonts.playfairDisplay().copyWith(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 300 - animatedHeight * 0.5,
-                            color: Colors.white),
-                      ),
-                    ),
-                  ),
-                  const Positioned(
-                    right: 0,
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 10.0,
-                        vertical: 20,
-                      ),
-                      child: Column(
+              SizedBox(
+                height: mediaQuery.height * 2.1,
+                width: mediaQuery.width,
+                child: PageView.builder(
+                  controller: _pageController,
+                  onPageChanged: onPageChange,
+                  itemCount: widget.images.length,
+                  itemBuilder: (context, index) =>
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Icon(
-                            CupertinoIcons.heart,
-                            color: Colors.white,
-                            size: 25,
+                          Stack(
+                            children: [
+                              Transform.translate(
+                                offset: Offset(
+                                  0 + animatedHeight * 0.4,
+                                  -animatedHeight * -0.15,
+                                ),
+                                child: Transform.translate(
+                                  offset: const Offset(0, -150),
+                                  child: Text(
+                                    "05",
+                                    style: GoogleFonts.playfairDisplay()
+                                        .copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 300 - animatedHeight * 0.5,
+                                        color: Colors.white),
+                                  ),
+                                ),
+                              ),
+                              // const Positioned(
+                              //   right: 0,
+                              //   child: Padding(
+                              //     padding: EdgeInsets.symmetric(
+                              //       horizontal: 10.0,
+                              //       vertical: 20,
+                              //     ),
+                              //     child: Column(
+                              //       crossAxisAlignment: CrossAxisAlignment.end,
+                              //       mainAxisAlignment: MainAxisAlignment.center,
+                              //       children: [
+                              //         Icon(
+                              //           CupertinoIcons.heart,
+                              //           color: Colors.white,
+                              //           size: 25,
+                              //         ),
+                              //         SizedBox(height: 30),
+                              //         Icon(
+                              //           CupertinoIcons.bookmark,
+                              //           color: Colors.white,
+                              //           size: 25,
+                              //         ),
+                              //       ],
+                              //     ),
+                              //   ),
+                              // )
+                            ],
                           ),
-                          SizedBox(height: 30),
-                          Icon(
-                            CupertinoIcons.bookmark,
-                            color: Colors.white,
-                            size: 25,
+                          Transform.translate(
+                            offset: const Offset(0, -170),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding:
+                                  const EdgeInsets.symmetric(horizontal: 50.0),
+                                  child: Text(
+                                    "ON THE PLASTICITY OF AN ACTOR",
+                                    style: GoogleFonts.playfairDisplay()
+                                        .copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 25,
+                                        color: Colors.white),
+                                  ),
+                                ),
+                                const SizedBox(height: 10),
+                                Padding(
+                                  padding:
+                                  const EdgeInsets.symmetric(horizontal: 50.0),
+                                  child: Text(
+                                    "Everyone has the right to freedom of thought, conscience and religion; this right includes freedom to change his religion or belief, and freedom, either alone or in community with others and in public or private, to manifest his religion or belief in teaching, practice, worship and observance. Everyone has the right to freedom of opinion and expression; this right includes freedom to hold opinions without interference and to seek, receive and impart information and ideas through any media and regardless of frontiers. Everyone has the right to rest and leisure, including reasonable limitation of working hours and periodic holidays with pay.Everyone has the right to freedom of thought, conscience and religion; this right includes freedom to change his religion or belief, and freedom, either alone or in community with others and in public or private, to manifest his religion or belief in teaching, practice, worship and observance. Everyone has the right to freedom of opinion and expression; this right includes freedom to hold opinions without interference and to seek, receive and impart information and ideas through any media and regardless of frontiers. Everyone has the right to rest and leisure, including reasonable limitation of working hours and periodic holidays with pay.Everyone has the right to freedom of thought, conscience and religion; this right includes freedom to change his religion or belief, and freedom, either alone or in community with others and in public or private, to manifest his religion or belief in teaching, practice, worship and observance. Everyone has the right to freedom of opinion and expression; this right includes freedom to hold opinions without interference and to seek, receive and impart information and ideas through any media and regardless of frontiers. Everyone has the right to rest and leisure, including reasonable limitation of working hours and periodic holidays with pay.Everyone has the right to freedom of thought, conscience and religion; this right includes freedom to change his religion or belief, and freedom, either alone or in community with others and in public or private, to manifest his religion or belief in teaching, practice, worship and observance. Everyone has the right to freedom of opinion and expression; this right includes freedom to hold opinions without interference and to seek, receive and impart information and ideas through any media and regardless of frontiers. Everyone has the right to rest and leisure, including reasonable limitation of working hours and periodic holidays with pay.",
+                                    style: GoogleFonts.playfairDisplay()
+                                        .copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                      color: Colors.white70,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       ),
-                    ),
-                  )
-                ],
-              ),
-              Transform.translate(
-                offset: const Offset(0, -90),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 50.0),
-                  child: Text(
-                    "ON THE PLASTICITY OF AN ACTOR",
-                    style: GoogleFonts.playfairDisplay().copyWith(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 25,
-                        color: Colors.white),
-                  ),
-                ),
-              ),
-              Transform.translate(
-                offset: const Offset(0, -80),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 50.0),
-                  child: Text(
-                    "Everyone has the right to freedom of thought, conscience and religion; this right includes freedom to change his religion or belief, and freedom, either alone or in community with others and in public or private, to manifest his religion or belief in teaching, practice, worship and observance. Everyone has the right to freedom of opinion and expression; this right includes freedom to hold opinions without interference and to seek, receive and impart information and ideas through any media and regardless of frontiers. Everyone has the right to rest and leisure, including reasonable limitation of working hours and periodic holidays with pay.Everyone has the right to freedom of thought, conscience and religion; this right includes freedom to change his religion or belief, and freedom, either alone or in community with others and in public or private, to manifest his religion or belief in teaching, practice, worship and observance. Everyone has the right to freedom of opinion and expression; this right includes freedom to hold opinions without interference and to seek, receive and impart information and ideas through any media and regardless of frontiers. Everyone has the right to rest and leisure, including reasonable limitation of working hours and periodic holidays with pay.Everyone has the right to freedom of thought, conscience and religion; this right includes freedom to change his religion or belief, and freedom, either alone or in community with others and in public or private, to manifest his religion or belief in teaching, practice, worship and observance. Everyone has the right to freedom of opinion and expression; this right includes freedom to hold opinions without interference and to seek, receive and impart information and ideas through any media and regardless of frontiers. Everyone has the right to rest and leisure, including reasonable limitation of working hours and periodic holidays with pay.Everyone has the right to freedom of thought, conscience and religion; this right includes freedom to change his religion or belief, and freedom, either alone or in community with others and in public or private, to manifest his religion or belief in teaching, practice, worship and observance. Everyone has the right to freedom of opinion and expression; this right includes freedom to hold opinions without interference and to seek, receive and impart information and ideas through any media and regardless of frontiers. Everyone has the right to rest and leisure, including reasonable limitation of working hours and periodic holidays with pay.",
-                    style: GoogleFonts.playfairDisplay().copyWith(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                      color: Colors.white70,
-                    ),
-                  ),
                 ),
               ),
             ]),
