@@ -5,12 +5,19 @@ import 'package:swipe_deck/swipe_deck.dart';
 
 import 'details_view.dart';
 
-final List<String> colors = [
-  "assets/magazine/images/image1.jpeg",
-  "assets/magazine/images/image2.jpeg",
-  "assets/magazine/images/image3.jpeg",
-  "assets/magazine/images/image5.jpeg",
-  "assets/magazine/images/image6.jpeg",
+class CartItemModel {
+  final int id;
+  final String image;
+
+  CartItemModel({required this.id, required this.image});
+}
+
+final List<CartItemModel> imageItems = [
+  CartItemModel(id: 1, image: "assets/magazine/images/image1.jpeg"),
+  CartItemModel(id: 2, image: "assets/magazine/images/image2.jpeg"),
+  CartItemModel(id: 3, image: "assets/magazine/images/image3.jpeg"),
+  CartItemModel(id: 4, image: "assets/magazine/images/image5.jpeg"),
+  CartItemModel(id: 5, image: "assets/magazine/images/image6.jpeg"),
 ];
 
 final List<String> bottomList = [
@@ -269,26 +276,22 @@ class StackedCard extends StatelessWidget {
         onChange: (index) {
           // print(colors[index]);
         },
-        widgets: colors
+        widgets: imageItems
             .map((image) => GestureDetector(
                   onTap: () {
-                    print(image);
-
 
                     Navigator.of(context).push(
                       PageRouteBuilder(
-                        transitionDuration:
-                        const Duration(milliseconds: 500),
+                        transitionDuration: const Duration(milliseconds: 500),
                         reverseTransitionDuration:
-                        const Duration(milliseconds: 500),
-                        pageBuilder: (context, animation,
-                            secondaryAnimation) =>
+                            const Duration(milliseconds: 500),
+                        pageBuilder: (context, animation, secondaryAnimation) =>
                             FadeTransition(
-                              opacity: animation,
-                              child:  CardDetailsView(image: image),
-                            ),
-                        transitionsBuilder: (context, animation,
-                            secondaryAnimation, child) {
+                          opacity: animation,
+                          child: CardDetailsView(image: image),
+                        ),
+                        transitionsBuilder:
+                            (context, animation, secondaryAnimation, child) {
                           return child;
                         },
                       ),
@@ -297,7 +300,7 @@ class StackedCard extends StatelessWidget {
                   child: ClipRRect(
                       borderRadius: BorderRadius.zero,
                       child: Image.asset(
-                        image,
+                        image.image,
                         fit: BoxFit.cover,
                       )),
                 ))
