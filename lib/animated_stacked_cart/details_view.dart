@@ -75,7 +75,7 @@ class _CardDetailsViewState extends State<CardDetailsView> {
       backgroundColor: widget.images[selectedIndex].color,
       body: CustomScrollView(
         controller: _sliverScrollController,
-        clipBehavior: Clip.antiAlias,
+        clipBehavior: Clip.hardEdge,
         slivers: [
           SliverAppBar(
             elevation: 0.0,
@@ -245,64 +245,68 @@ class _CardDetailsViewState extends State<CardDetailsView> {
                       onPageChanged: onPageChange,
                       itemCount: widget.images.length,
                       itemBuilder: (context, index) {
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Stack(
-                              children: [
-                                Transform.translate(
-                                  offset: Offset(
-                                    0 + animatedHeight * 0.8,
-                                    -animatedHeight * -0.15,
-                                  ),
-                                  child: Transform.translate(
-                                    offset: const Offset(0, -150),
-                                    child: Text(
-                                      "0${selectedIndex + 1}",
-                                      style: GoogleFonts.playfairDisplay()
-                                          .copyWith(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 300 - animatedHeight,
-                                              color: Colors.white),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Transform.translate(
-                              offset: const Offset(0, -180),
-                              child: Column(
+                        final colorIndex = index == 0 ? selectedIndex : index;
+                        return Container(
+                          color: widget.images[colorIndex].color,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Stack(
                                 children: [
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 40.0),
-                                    child: Text(
-                                      "ON THE PLASTICITY OF AN ACTOR",
-                                      style: GoogleFonts.playfairDisplay()
-                                          .copyWith(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 25,
-                                              color: Colors.white),
+                                  Transform.translate(
+                                    offset: Offset(
+                                      0 + animatedHeight * 0.8,
+                                      -animatedHeight * -0.15,
                                     ),
-                                  ),
-                                  const SizedBox(height: 10),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 40.0),
-                                    child: Text(
-                                      "Everyone has the right to freedom of thought, conscience and religion; this right includes freedom to change his religion or belief, and freedom, either alone or in community with others and in public or private, to manifest his religion or belief in teaching, practice, worship and observance. Everyone has the right to freedom of opinion and expression; this right includes freedom to hold opinions without interference and to seek, receive and impart information and ideas through any media and regardless of frontiers. Everyone has the right to rest and leisure, including reasonable limitation of working hours and periodic holidays with pay.Everyone has the right to freedom of thought, conscience and religion; this right includes freedom to change his religion or belief, and freedom, either alone or in community with others and in public or private, to manifest his religion or belief in teaching, practice, worship and observance. Everyone has the right to freedom of opinion and expression; this right includes freedom to hold opinions without interference and to seek, receive and impart information and ideas through any media and regardless of frontiers. Everyone has the right to rest and leisure, including reasonable limitation of working hours and periodic holidays with pay.Everyone has the right to freedom of thought, conscience and religion; this right includes freedom to change his religion or belief, and freedom, either alone or in community with others and in public or private, to manifest his religion or belief in teaching, practice, worship and observance. Everyone has the right to freedom of opinion and expression; this right includes freedom to hold opinions without interference and to seek, receive and impart information and ideas through any media and regardless of frontiers. Everyone has the right to rest and leisure, including reasonable limitation of working hours and periodic holidays with pay.Everyone has the right to freedom of thought, conscience and religion; this right includes freedom to change his religion or belief, and freedom, either alone or in community with others and in public or private, to manifest his religion or belief in teaching, practice, worship and observance. Everyone has the right to freedom of opinion and expression; this right includes freedom to hold opinions without interference and to seek, receive and impart information and ideas through any media and regardless of frontiers. Everyone has the right to rest and leisure, including reasonable limitation of working hours and periodic holidays with pay.",
-                                      style: GoogleFonts.playfairDisplay()
-                                          .copyWith(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16,
-                                        color: Colors.white70,
+                                    child: Transform.translate(
+                                      offset: const Offset(0, -150),
+                                      child: Text(
+                                        "0${selectedIndex + 1}",
+                                        style: GoogleFonts.playfairDisplay()
+                                            .copyWith(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 300 - animatedHeight,
+                                                color: Colors.white),
                                       ),
                                     ),
                                   ),
                                 ],
                               ),
-                            ),
-                          ],
+                              Transform.translate(
+                                offset: const Offset(0, -180),
+                                child: Column(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 40.0),
+                                      child: Text(
+                                        "ON THE PLASTICITY OF AN ACTOR",
+                                        style: GoogleFonts.playfairDisplay()
+                                            .copyWith(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 25,
+                                                color: Colors.white),
+                                      ),
+                                    ),
+                                    const SizedBox(height: 10),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 40.0),
+                                      child: Text(
+                                        "Everyone has the right to freedom of thought, conscience and religion; this right includes freedom to change his religion or belief, and freedom, either alone or in community with others and in public or private, to manifest his religion or belief in teaching, practice, worship and observance. Everyone has the right to freedom of opinion and expression; this right includes freedom to hold opinions without interference and to seek, receive and impart information and ideas through any media and regardless of frontiers. Everyone has the right to rest and leisure, including reasonable limitation of working hours and periodic holidays with pay.Everyone has the right to freedom of thought, conscience and religion; this right includes freedom to change his religion or belief, and freedom, either alone or in community with others and in public or private, to manifest his religion or belief in teaching, practice, worship and observance. Everyone has the right to freedom of opinion and expression; this right includes freedom to hold opinions without interference and to seek, receive and impart information and ideas through any media and regardless of frontiers. Everyone has the right to rest and leisure, including reasonable limitation of working hours and periodic holidays with pay.Everyone has the right to freedom of thought, conscience and religion; this right includes freedom to change his religion or belief, and freedom, either alone or in community with others and in public or private, to manifest his religion or belief in teaching, practice, worship and observance. Everyone has the right to freedom of opinion and expression; this right includes freedom to hold opinions without interference and to seek, receive and impart information and ideas through any media and regardless of frontiers. Everyone has the right to rest and leisure, including reasonable limitation of working hours and periodic holidays with pay.Everyone has the right to freedom of thought, conscience and religion; this right includes freedom to change his religion or belief, and freedom, either alone or in community with others and in public or private, to manifest his religion or belief in teaching, practice, worship and observance. Everyone has the right to freedom of opinion and expression; this right includes freedom to hold opinions without interference and to seek, receive and impart information and ideas through any media and regardless of frontiers. Everyone has the right to rest and leisure, including reasonable limitation of working hours and periodic holidays with pay.",
+                                        style: GoogleFonts.playfairDisplay()
+                                            .copyWith(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16,
+                                          color: Colors.white70,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         );
                       }),
                 ),

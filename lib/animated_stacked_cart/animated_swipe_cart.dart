@@ -21,17 +21,17 @@ final List<CartItemModel> imageItems = [
   ),
   CartItemModel(
     id: 2,
-    color: Colors.white70,
+    color: const Color(0xFF989494),
     image: "assets/magazine/images/image2.jpeg",
   ),
   CartItemModel(
     id: 3,
-    color: Colors.black,
+    color: const Color(0xFF000000),
     image: "assets/magazine/images/image1.jpeg",
   ),
   CartItemModel(
     id: 4,
-    color: Colors.orangeAccent,
+    color: const Color(0xFFEF994F),
     image: "assets/magazine/images/image6.jpeg",
   ),
   CartItemModel(
@@ -243,17 +243,19 @@ class TopContainer extends StatelessWidget {
                       )),
                   const Spacer(),
                   const Icon(
-                    Icons.security_rounded,
-                    color: Colors.red,
-                    size: 30,
+                    CupertinoIcons.forward,
+                    color: Colors.black,
+                    size: 25,
                   )
                 ],
               ),
             ),
 
-            // Container List
+
             const SizedBox(height: 20),
 
+
+            // List Of Container
             SizedBox(
               height: 130,
               child: ListView.builder(
