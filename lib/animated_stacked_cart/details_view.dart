@@ -26,14 +26,15 @@ class _CardDetailsViewState extends State<CardDetailsView> {
   late double animatedHeight = 0;
   late double animatedWidth = 0;
 
-  late String appBarTitle = "";
+
   late int selectedIndex = widget.currentIndex;
+  late String appBarTitle = "";
 
   void scrollListener() {
     // print("Scroll Offsets : ${_scrollController.offset}");
 
     if (_scrollController.offset > 460) {
-      appBarTitle = "05";
+      appBarTitle = "0${selectedIndex+1}";
     } else {
       appBarTitle = "";
     }
@@ -194,17 +195,17 @@ class _CardDetailsViewState extends State<CardDetailsView> {
                             children: [
                               Transform.translate(
                                 offset: Offset(
-                                  0 + animatedHeight * 0.4,
+                                  0 + animatedHeight * 0.8,
                                   -animatedHeight * -0.15,
                                 ),
                                 child: Transform.translate(
                                   offset: const Offset(0, -150),
                                   child: Text(
-                                    "05",
+                                    "0${selectedIndex+1}",
                                     style: GoogleFonts.playfairDisplay()
                                         .copyWith(
                                         fontWeight: FontWeight.bold,
-                                        fontSize: 300 - animatedHeight * 0.5,
+                                        fontSize: 300 - animatedHeight,
                                         color: Colors.white),
                                   ),
                                 ),
@@ -243,7 +244,7 @@ class _CardDetailsViewState extends State<CardDetailsView> {
                               children: [
                                 Padding(
                                   padding:
-                                  const EdgeInsets.symmetric(horizontal: 50.0),
+                                  const EdgeInsets.symmetric(horizontal: 40.0),
                                   child: Text(
                                     "ON THE PLASTICITY OF AN ACTOR",
                                     style: GoogleFonts.playfairDisplay()
@@ -256,7 +257,7 @@ class _CardDetailsViewState extends State<CardDetailsView> {
                                 const SizedBox(height: 10),
                                 Padding(
                                   padding:
-                                  const EdgeInsets.symmetric(horizontal: 50.0),
+                                  const EdgeInsets.symmetric(horizontal: 40.0),
                                   child: Text(
                                     "Everyone has the right to freedom of thought, conscience and religion; this right includes freedom to change his religion or belief, and freedom, either alone or in community with others and in public or private, to manifest his religion or belief in teaching, practice, worship and observance. Everyone has the right to freedom of opinion and expression; this right includes freedom to hold opinions without interference and to seek, receive and impart information and ideas through any media and regardless of frontiers. Everyone has the right to rest and leisure, including reasonable limitation of working hours and periodic holidays with pay.Everyone has the right to freedom of thought, conscience and religion; this right includes freedom to change his religion or belief, and freedom, either alone or in community with others and in public or private, to manifest his religion or belief in teaching, practice, worship and observance. Everyone has the right to freedom of opinion and expression; this right includes freedom to hold opinions without interference and to seek, receive and impart information and ideas through any media and regardless of frontiers. Everyone has the right to rest and leisure, including reasonable limitation of working hours and periodic holidays with pay.Everyone has the right to freedom of thought, conscience and religion; this right includes freedom to change his religion or belief, and freedom, either alone or in community with others and in public or private, to manifest his religion or belief in teaching, practice, worship and observance. Everyone has the right to freedom of opinion and expression; this right includes freedom to hold opinions without interference and to seek, receive and impart information and ideas through any media and regardless of frontiers. Everyone has the right to rest and leisure, including reasonable limitation of working hours and periodic holidays with pay.Everyone has the right to freedom of thought, conscience and religion; this right includes freedom to change his religion or belief, and freedom, either alone or in community with others and in public or private, to manifest his religion or belief in teaching, practice, worship and observance. Everyone has the right to freedom of opinion and expression; this right includes freedom to hold opinions without interference and to seek, receive and impart information and ideas through any media and regardless of frontiers. Everyone has the right to rest and leisure, including reasonable limitation of working hours and periodic holidays with pay.",
                                     style: GoogleFonts.playfairDisplay()
