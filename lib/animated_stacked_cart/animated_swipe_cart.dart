@@ -16,8 +16,8 @@ class CartItemModel {
 final List<CartItemModel> imageItems = [
   CartItemModel(
     id: 1,
-    color: Colors.red,
-    image: "assets/magazine/images/image1.jpeg",
+    color: const Color(0xFFEAB9B9),
+    image: "assets/magazine/images/image3.jpeg",
   ),
   CartItemModel(
     id: 2,
@@ -27,17 +27,17 @@ final List<CartItemModel> imageItems = [
   CartItemModel(
     id: 3,
     color: Colors.black,
-    image: "assets/magazine/images/image3.jpeg",
+    image: "assets/magazine/images/image1.jpeg",
   ),
   CartItemModel(
     id: 4,
-    color: Colors.green,
-    image: "assets/magazine/images/image5.jpeg",
+    color: Colors.orangeAccent,
+    image: "assets/magazine/images/image6.jpeg",
   ),
   CartItemModel(
     id: 5,
-    color: Colors.purpleAccent,
-    image: "assets/magazine/images/image6.jpeg",
+    color: const Color(0x010C13AB),
+    image: "assets/magazine/images/image5.jpeg",
   ),
 ];
 
@@ -156,23 +156,28 @@ class TopContainer extends StatelessWidget {
                     // color: Colors.red,
                     child: Row(
                       children: [
-                        Stack(
-                          children: [
-                            Transform.translate(
-                              offset: const Offset(-2, 4),
-                              child: const CircleAvatar(
-                                radius: 10,
-                                backgroundColor: Colors.greenAccent,
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: Stack(
+                            children: [
+                              Transform.translate(
+                                offset: const Offset(-2, 4),
+                                child: const CircleAvatar(
+                                  radius: 10,
+                                  backgroundColor: Colors.greenAccent,
+                                ),
                               ),
-                            ),
-                            Transform.translate(
-                              offset: const Offset(8, -4),
-                              child: const CircleAvatar(
-                                radius: 11,
-                                backgroundColor: Colors.red,
+                              Transform.translate(
+                                offset: const Offset(8, -4),
+                                child: const CircleAvatar(
+                                  radius: 11,
+                                  backgroundColor: Colors.red,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                         const SizedBox(width: 15),
                         Text(
