@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_animation/animated_stacked_cart/animated_swipe_card.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -29,6 +30,7 @@ class _CardDetailsViewState extends State<CardDetailsView> {
   late double animatedWidth = 0;
 
   late int selectedIndex = widget.currentIndex;
+  late bool isReversScroll = false;
 
   late String appBarTitle = "";
 
@@ -51,6 +53,9 @@ class _CardDetailsViewState extends State<CardDetailsView> {
 
   pageChangeListener() {
     _pageScrollNotifier.value = _pageController.page!;
+    isReversScroll =
+        _pageController.position.userScrollDirection == ScrollDirection.reverse;
+    print("Page Controller Direction : $isReversScroll");
   }
 
   @override
@@ -171,10 +176,9 @@ class _CardDetailsViewState extends State<CardDetailsView> {
                                           Offset(0, 0 + animatedHeight * 0.45),
                                       child: Image.asset(
                                         widget
-                                            .images[selectedIndex ==
-                                                    widget.images.length - 1
-                                                ? selectedIndex
-                                                : selectedIndex + 1]
+                                            .images[isReversScroll
+                                                ? selectedIndex == widget.images.length - 1? selectedIndex: selectedIndex + 1
+                                                : selectedIndex == 0 ? selectedIndex : selectedIndex - 1]
                                             .image,
                                         height: 335 + animatedHeight * 3,
                                         width: 245 + animatedWidth * 1.4,
