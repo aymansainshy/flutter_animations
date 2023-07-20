@@ -688,6 +688,16 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: Row(
                 children: [
+
+                  IconButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    icon: const Icon(
+                      CupertinoIcons.back,
+                      color: Colors.black45,
+                    ),
+                  ),
                   const Spacer(),
                   IconButton(
                     onPressed: () {},

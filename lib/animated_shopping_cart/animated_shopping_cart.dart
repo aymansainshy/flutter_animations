@@ -343,11 +343,14 @@ class _AnimatedShoppingCartState extends State<AnimatedShoppingCart> {
                           padding: const EdgeInsets.symmetric(horizontal: 10),
                           child: Row(
                             children: [
-                              const Icon(
-                                CupertinoIcons.back,
-                                size: 25,
+                               IconButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                               icon: const Icon (CupertinoIcons.back,
+                                size: 25,)
                               ),
-                              const SizedBox(width: 40),
+                              const SizedBox(width: 20),
                               Text(
                                 "Apple Store",
                                 style: GoogleFonts.lexendDeca().copyWith(
